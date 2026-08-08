@@ -29,7 +29,8 @@
                             goldlight: '#FEF3C7',
                             slate: '#F8FAFC',
                             subtle: '#E2E8F0',
-                            accent: '#1E40AF'
+                            accent: '#1E40AF',
+                            fb: '#1877F2'
                         }
                     },
                     fontFamily: {
@@ -68,7 +69,7 @@
     <!-- Sample Data Notice Banner -->
     <div class="sample-badge text-white text-xs font-semibold px-4 py-1.5 text-center flex items-center justify-center space-x-2 shadow-inner">
         <i class="fa-solid fa-flask"></i>
-        <span><strong>SAMPLE DATA DEMO MODE:</strong> All publications, statistics, and metrics presented are for system demonstration until live integration.</span>
+        <span><strong>LIVE INTEGRATION MODE:</strong> Google Forms & Drive linked. Connect your official Facebook page URL in setting tab below.</span>
     </div>
 
     <!-- Official University Institutional Header -->
@@ -92,13 +93,13 @@
 
                 <!-- Right Action Header CTAs -->
                 <div class="hidden lg:flex items-center space-x-3">
+                    <button onclick="switchTab('community')" class="bg-msrd-fb hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-md shadow transition flex items-center space-x-1.5">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>Community & Feed</span>
+                    </button>
                     <button onclick="switchTab('contact')" class="bg-msrd-gold hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-md shadow transition flex items-center space-x-1.5">
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Submit Publication</span>
-                    </button>
-                    <button onclick="switchTab('dashboard')" class="bg-msrd-teal hover:bg-sky-600 text-white text-xs font-semibold px-3 py-2 rounded-md shadow transition flex items-center space-x-1.5">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>Observatory Dashboard</span>
                     </button>
                 </div>
 
@@ -113,37 +114,286 @@
             <!-- Navigation Links Bar -->
             <nav class="hidden lg:flex space-x-1 border-t border-slate-700/60 pt-1 pb-2 text-xs font-medium overflow-x-auto" id="desktopNav">
                 <button onclick="switchTab('home')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition active-nav" data-tab="home">Home</button>
+                <button onclick="switchTab('community')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition text-sky-300 font-semibold" data-tab="community"><i class="fa-brands fa-facebook mr-1"></i> Community Feed</button>
                 <button onclick="switchTab('about')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="about">About MSRD</button>
                 <button onclick="switchTab('publications')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="publications">Publications</button>
                 <button onclick="switchTab('dashboard')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="dashboard">Research Dashboard</button>
                 <button onclick="switchTab('researchers')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="researchers">Researchers & Supervisors</button>
                 <button onclick="switchTab('student-research')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="student-research">Student Research</button>
-                <button onclick="switchTab('resources')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="resources">Research Resources</button>
+                <button onclick="switchTab('resources')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="resources">Google Drive Resources</button>
                 <button onclick="switchTab('opportunities')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="opportunities">Opportunities</button>
                 <button onclick="switchTab('news')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="news">News & Events</button>
-                <button onclick="switchTab('achievements')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="achievements">Achievements</button>
-                <button onclick="switchTab('contact')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="contact">Contact & Workflow</button>
+                <button onclick="switchTab('contact')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="contact">Google Forms Submission</button>
             </nav>
         </div>
 
         <!-- Mobile Drawer Navigation -->
         <div id="mobileMenu" class="hidden lg:hidden bg-msrd-dark px-4 pt-2 pb-4 space-y-1 border-t border-slate-700">
             <button onclick="switchTab('home')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">1. Home</button>
-            <button onclick="switchTab('about')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">2. About MSRD</button>
-            <button onclick="switchTab('publications')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">3. Publications Repository</button>
-            <button onclick="switchTab('dashboard')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">4. Research Dashboard</button>
-            <button onclick="switchTab('researchers')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">5. Researchers & Supervisors</button>
-            <button onclick="switchTab('student-research')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">6. Student Research</button>
-            <button onclick="switchTab('resources')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">7. Research Resources</button>
-            <button onclick="switchTab('opportunities')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">8. Research Opportunities</button>
-            <button onclick="switchTab('news')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">9. News & Events</button>
-            <button onclick="switchTab('achievements')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">10. Research Achievements</button>
-            <button onclick="switchTab('contact')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">11. Contact & Data Architecture</button>
+            <button onclick="switchTab('community')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-sky-300 font-semibold rounded hover:bg-slate-800"><i class="fa-brands fa-facebook mr-2"></i>2. Community & Facebook Profile</button>
+            <button onclick="switchTab('about')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">3. About MSRD</button>
+            <button onclick="switchTab('publications')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">4. Publications Repository</button>
+            <button onclick="switchTab('dashboard')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">5. Research Dashboard</button>
+            <button onclick="switchTab('researchers')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">6. Researchers & Supervisors</button>
+            <button onclick="switchTab('student-research')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">7. Student Research</button>
+            <button onclick="switchTab('resources')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">8. Google Drive Resources</button>
+            <button onclick="switchTab('opportunities')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">9. Research Opportunities</button>
+            <button onclick="switchTab('news')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">10. News & Events</button>
+            <button onclick="switchTab('contact')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">11. Google Forms Submission Portal</button>
         </div>
     </header>
 
     <!-- Main Content Container -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ==================== TAB: COMMUNITY FEED & FACEBOOK (NEW PAGE) ==================== -->
+        <section id="tab-community" class="tab-content space-y-8">
+            
+            <!-- Facebook-Style Banner Header -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="h-44 bg-gradient-to-r from-blue-900 via-msrd-navy to-msrd-fb relative p-6 flex items-end">
+                    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-20 h-20 rounded-full border-4 border-white bg-msrd-navy text-white flex items-center justify-center font-bold text-2xl shadow-md">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="text-white">
+                                <h2 class="text-xl md:text-2xl font-serif font-bold flex items-center gap-2">
+                                    MSRD Community & Social Feed
+                                    <i class="fa-solid fa-circle-check text-sky-400 text-sm"></i>
+                                </h2>
+                                <p class="text-xs text-blue-100">Interactive Community Hub • Comment on Research, Audio Updates & Live Polls</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <a href="https://facebook.com" target="_blank" rel="noopener" class="bg-msrd-fb hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2">
+                                <i class="fa-brands fa-facebook-f"></i>
+                                <span>Visit Official Facebook Page</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
+                    <div class="flex items-center space-x-6">
+                        <span><strong class="text-slate-900">1.2k</strong> Followers</span>
+                        <span><strong class="text-slate-900">148</strong> Verified Articles</span>
+                        <span><strong class="text-slate-900">450+</strong> Active Student Researchers</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="sharePage('Facebook')" class="hover:text-msrd-fb transition"><i class="fa-brands fa-facebook"></i></button>
+                        <button onclick="sharePage('Twitter')" class="hover:text-sky-500 transition"><i class="fa-brands fa-x-twitter"></i></button>
+                        <button onclick="sharePage('LinkedIn')" class="hover:text-blue-700 transition"><i class="fa-brands fa-linkedin"></i></button>
+                        <button onclick="sharePage('WhatsApp')" class="hover:text-emerald-600 transition"><i class="fa-brands fa-whatsapp"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Main Feed Column (2 cols) -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Feature 1: Audio Success Podcast / Announcement -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-podcast text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-900">Hear Our Newest Success</h3>
+                                <p class="text-xs text-slate-500">Official Audio Briefing • Dr. Layla Naser (MSRD Board)</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-3">
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                🎙️ <strong>Episode 14:</strong> "Celebrating 68 High-Impact Q1 Publications & The Launch of New Student Research Grants for 2026."
+                            </p>
+                            
+                            <!-- Audio Player HTML5 -->
+                            <div class="w-full bg-white p-3 rounded-md border border-slate-200 shadow-inner">
+                                <audio controls class="w-full h-10 rounded">
+                                    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="flex justify-between items-center text-[10px] text-slate-500 mt-1">
+                                    <span>Audio duration: 2 mins 45 secs</span>
+                                    <span>Recorded: March 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Facebook-Style Post with Image & Dynamic Comment System -->
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        
+                        <!-- Post Header -->
+                        <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-msrd-navy text-white flex items-center justify-center font-bold">
+                                    HU
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs text-slate-900 flex items-center gap-1">
+                                        College of Medicine - Hebron University
+                                        <i class="fa-solid fa-circle-check text-msrd-teal text-[11px]"></i>
+                                    </h4>
+                                    <p class="text-[11px] text-slate-500">Posted 2 hours ago • <i class="fa-solid fa-globe"></i> Public</p>
+                                </div>
+                            </div>
+                            <button onclick="sharePage('Facebook')" class="text-xs text-slate-400 hover:text-slate-600">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                        </div>
+
+                        <!-- Post Description -->
+                        <div class="p-4 text-xs text-slate-800 space-y-2">
+                            <p class="font-medium text-slate-900 leading-relaxed">
+                                🎉 Outstanding Research Milestone! Medical student Tariq Al-Hamouri (MBBS Y5) has officially published his cross-sectional study on medical student burnout in the prestigious Q1 journal <em>BMC Medical Education</em>!
+                            </p>
+                            <p class="text-slate-600">
+                                Special thanks to clinical supervisor Dr. Layla Naser. Leave your congratulations and research questions for the team in the comments below! 👇
+                            </p>
+                        </div>
+
+                        <!-- Post Image -->
+                        <div class="relative bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80" alt="Medical Scientific Team" class="w-full h-72 object-cover opacity-95">
+                            <div class="absolute bottom-3 right-3 bg-slate-900/80 text-white text-[10px] px-2.5 py-1 rounded backdrop-blur-sm">
+                                <i class="fa-solid fa-camera mr-1"></i> Research Team Lab Spotlight
+                            </div>
+                        </div>
+
+                        <!-- Reaction & Stat Counter -->
+                        <div class="px-4 py-2 border-b border-slate-100 text-xs text-slate-500 flex justify-between items-center bg-slate-50">
+                            <div class="flex items-center space-x-1">
+                                <span class="bg-msrd-fb text-white p-1 rounded-full w-4 h-4 flex items-center justify-center text-[9px]"><i class="fa-solid fa-thumbs-up"></i></span>
+                                <span class="bg-rose-500 text-white p-1 rounded-full w-4 h-4 flex items-center justify-center text-[9px]"><i class="fa-solid fa-heart"></i></span>
+                                <span class="ml-1 font-medium" id="likeCount">142 Likes</span>
+                            </div>
+                            <div class="flex space-x-3 text-[11px]">
+                                <span id="commentCountDisplay">3 Comments</span>
+                                <span>18 Shares</span>
+                            </div>
+                        </div>
+
+                        <!-- Like, Comment, Share Action Buttons -->
+                        <div class="px-4 py-2 border-b border-slate-100 flex justify-around text-xs text-slate-600 font-medium">
+                            <button onclick="toggleLike()" id="likeBtn" class="flex-1 py-1 text-center hover:bg-slate-100 rounded flex items-center justify-center gap-2 transition">
+                                <i class="fa-regular fa-thumbs-up" id="likeIcon"></i>
+                                <span id="likeText">Like</span>
+                            </button>
+                            <button onclick="document.getElementById('commentInput').focus()" class="flex-1 py-1 text-center hover:bg-slate-100 rounded flex items-center justify-center gap-2 transition">
+                                <i class="fa-regular fa-comment"></i>
+                                <span>Comment</span>
+                            </button>
+                            <button onclick="sharePage('Native')" class="flex-1 py-1 text-center hover:bg-slate-100 rounded flex items-center justify-center gap-2 transition">
+                                <i class="fa-solid fa-share"></i>
+                                <span>Share Post</span>
+                            </button>
+                        </div>
+
+                        <!-- Comment Feed Container -->
+                        <div class="p-4 bg-slate-50 space-y-3">
+                            <div id="commentsList" class="space-y-3 text-xs">
+                                
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px]">
+                                        AK
+                                    </div>
+                                    <div class="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-2xs max-w-[85%]">
+                                        <span class="font-bold text-slate-900 block text-[11px]">Aisha Al-Khatib (MBBS Y6)</span>
+                                        <p class="text-slate-700 mt-0.5">Huge congratulations Tariq! Excellent work on bringing West Bank medical education data into international journals.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-7 h-7 rounded-full bg-msrd-teal text-white flex items-center justify-center font-bold text-[10px]">
+                                        MA
+                                    </div>
+                                    <div class="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-2xs max-w-[85%]">
+                                        <span class="font-bold text-slate-900 block text-[11px]">Prof. Mahmoud Abu-Sbeih</span>
+                                        <p class="text-slate-700 mt-0.5">Proud of our students at Hebron University College of Medicine. Outstanding dedication!</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Comment Input Form -->
+                            <div class="pt-2 flex items-center space-x-2">
+                                <input type="text" id="commentInput" placeholder="Write a public comment as viewer..." class="flex-grow p-2 border border-slate-300 rounded-full text-xs focus:outline-none focus:ring-2 focus:ring-msrd-teal">
+                                <button onclick="postComment()" class="bg-msrd-navy hover:bg-slate-800 text-white text-xs px-4 py-2 rounded-full font-medium transition">
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Right Social SideBar (Polls & Facebook Page Embed) -->
+                <div class="space-y-6">
+                    
+                    <!-- Feature 3: Interactive Community Poll -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center space-x-2 text-xs font-bold text-msrd-teal uppercase mb-2">
+                            <i class="fa-solid fa-square-poll-vertical text-base"></i>
+                            <span>Live Community Poll</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-slate-900 text-sm mb-3 leading-snug">
+                            Which medical research workshop should MSRD organize next for students?
+                        </h4>
+
+                        <div id="pollContainer" class="space-y-2 text-xs">
+                            <button onclick="votePoll(0)" class="w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-msrd-teal hover:bg-blue-50/50 transition flex justify-between items-center group">
+                                <span class="font-medium text-slate-800">1. Systematic Reviews & Meta-Analysis</span>
+                                <span class="text-slate-400 group-hover:text-msrd-teal font-mono">48%</span>
+                            </button>
+                            <button onclick="votePoll(1)" class="w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-msrd-teal hover:bg-blue-50/50 transition flex justify-between items-center group">
+                                <span class="font-medium text-slate-800">2. Advanced SPSS & R Biostatistics</span>
+                                <span class="text-slate-400 group-hover:text-msrd-teal font-mono">32%</span>
+                            </button>
+                            <button onclick="votePoll(2)" class="w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-msrd-teal hover:bg-blue-50/50 transition flex justify-between items-center group">
+                                <span class="font-medium text-slate-800">3. Grant Writing & IRB Protocols</span>
+                                <span class="text-slate-400 group-hover:text-msrd-teal font-mono">20%</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 text-center" id="pollTotal">Total Votes: 214 • Voting closes in 3 days</p>
+                    </div>
+
+                    <!-- Feature 4: Facebook Page Integration Box -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-serif font-bold text-msrd-navy text-sm flex items-center gap-2">
+                                <i class="fa-brands fa-facebook text-msrd-fb text-base"></i>
+                                <span>Official Facebook Plugin</span>
+                            </h4>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">Live Feed Link</span>
+                        </div>
+
+                        <!-- Embedded Facebook Page Plugin Frame Mockup / Real SDK placeholder -->
+                        <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-100 p-4 text-center space-y-3">
+                            <i class="fa-brands fa-facebook-square text-4xl text-msrd-fb"></i>
+                            <div>
+                                <h5 class="font-bold text-xs text-slate-900">MSRD - College of Medicine</h5>
+                                <p class="text-[11px] text-slate-500">Hebron University Official Page</p>
+                            </div>
+                            <p class="text-[11px] text-slate-600 italic">
+                                Connect your live Facebook feed directly using the Meta Page Plugin.
+                            </p>
+                            <a href="https://facebook.com" target="_blank" rel="noopener" class="inline-block bg-msrd-fb hover:bg-blue-700 text-white text-xs px-4 py-2 rounded font-medium transition">
+                                Follow on Facebook
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
         <!-- ==================== TAB 1: HOME ==================== -->
         <section id="tab-home" class="tab-content active space-y-8">
@@ -182,9 +432,6 @@
                         <i class="fa-solid fa-chart-line text-msrd-teal"></i>
                         <span>Research at a Glance</span>
                     </h3>
-                    <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-medium border border-amber-200">
-                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Sample Data - To Be Replaced
-                    </span>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -225,7 +472,7 @@
                         <div class="flex justify-between items-center mb-4">
                             <div>
                                 <h4 class="font-serif font-bold text-msrd-navy text-lg">College of Medicine Publication Trajectory</h4>
-                                <p class="text-xs text-slate-500">Peer-reviewed publications by academic calendar year (Sample Data)</p>
+                                <p class="text-xs text-slate-500">Peer-reviewed publications by academic calendar year</p>
                             </div>
                             <button onclick="switchTab('dashboard')" class="text-xs text-msrd-teal hover:underline font-semibold">Full Analytics &rarr;</button>
                         </div>
@@ -263,7 +510,7 @@
                     <div class="bg-gradient-to-br from-slate-900 to-msrd-navy text-white p-6 rounded-xl shadow-md border border-slate-800">
                         <div class="flex items-center justify-between text-xs text-amber-400 font-medium mb-2">
                             <span><i class="fa-solid fa-star mr-1"></i> Featured Research</span>
-                            <span class="badge-q1 text-xs px-2 py-0.5 rounded font-mono font-semibold">Q1 • IF 6.42</span>
+                            <span class="badge-q1 text-xs px-2 py-0.5 rounded font-mono font-semibold">Q1 • IF 3.60</span>
                         </div>
                         <h5 class="font-serif font-bold text-sm text-white mb-2 leading-snug">
                             "Prevalence and Risk Factors of Burnout Among Medical Students in Southern West Bank: A Multi-Center Cross-Sectional Study"
@@ -272,7 +519,7 @@
                             <strong class="text-slate-100">Authors:</strong> Tariq Al-Hamouri (Student Y5), Dr. Layla Naser (Supervisor)
                         </p>
                         <p class="text-xs text-slate-400 italic mb-4">
-                            Published in: Journal of Medical Education & Ethics (2025) • PubMed Indexed
+                            Published in: BMC Medical Education (2025) • PubMed Indexed
                         </p>
                         <button onclick="openModal('PUB-2025-001')" class="w-full text-center bg-msrd-teal hover:bg-sky-600 text-white text-xs py-2 rounded font-medium transition">
                             View Full Publication Record
@@ -346,15 +593,15 @@
                 <div class="mt-8 pt-6 border-t border-slate-200">
                     <h3 class="text-lg font-serif font-bold text-msrd-navy mb-2">Technical Architecture & Governance Workflow</h3>
                     <p class="text-xs text-slate-600 mb-6">
-                        MSRD operates a structured verification and data pipeline. Information is submitted through standardized forms, vetted by MSRD officers, stored in a master spreadsheet, and rendered dynamically on this public observatory.
+                        MSRD operates a structured Google-integrated data pipeline. Submissions are processed via embedded Google Forms, archived in Google Drive & Google Sheets, and rendered directly on this public web interface.
                     </p>
 
                     <!-- Workflow Diagram Visual -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-center">
                         <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                            <i class="fa-solid fa-file-pen text-msrd-navy text-2xl mb-2"></i>
+                            <i class="fa-brands fa-google-drive text-msrd-navy text-2xl mb-2"></i>
                             <div class="font-semibold text-xs text-slate-800">1. Google Forms</div>
-                            <p class="text-[11px] text-slate-500 mt-1">Student/Faculty submits article metadata & proof</p>
+                            <p class="text-[11px] text-slate-500 mt-1">Student/Faculty submits article metadata & DOI proof</p>
                         </div>
                         <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg">
                             <i class="fa-solid fa-user-check text-amber-800 text-2xl mb-2"></i>
@@ -374,41 +621,8 @@
                         <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
                             <i class="fa-solid fa-globe text-indigo-900 text-2xl mb-2"></i>
                             <div class="font-semibold text-xs text-slate-800">5. Web Observatory</div>
-                            <p class="text-[11px] text-slate-500 mt-1">Public visibility, searchable catalog & dashboard</p>
+                            <p class="text-[11px] text-slate-500 mt-1">Public visibility, searchable catalog & community feed</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Public vs Private Data Governance Matrix -->
-                <div class="mt-8">
-                    <h4 class="font-serif font-bold text-msrd-navy text-base mb-3">Data Separation & Safeguards Matrix</h4>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full text-xs text-left border border-slate-200">
-                            <thead class="bg-slate-100 text-slate-700 uppercase font-semibold">
-                                <tr>
-                                    <th class="p-3 border-b">Category</th>
-                                    <th class="p-3 border-b text-emerald-700"><i class="fa-solid fa-lock-open mr-1"></i> Publicly Displayed Data</th>
-                                    <th class="p-3 border-b text-rose-700"><i class="fa-solid fa-lock mr-1"></i> Strictly Private MSRD Internal Data</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-200 text-slate-600">
-                                <tr>
-                                    <td class="p-3 font-medium text-slate-800">Article Details</td>
-                                    <td class="p-3">Title, Journal, Year, Semester, DOI, PMID, Impact Factor, Quartile, Indexing</td>
-                                    <td class="p-3">Unpublished drafts, confidential review notes, rejection histories</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-slate-800">Authors & Students</td>
-                                    <td class="p-3">Author Names, Student Academic Year, Department, Supervisor Rank</td>
-                                    <td class="p-3">Student national ID, private phone numbers, personal email, academic GPA</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-slate-800">Ethical & Administrative</td>
-                                    <td class="p-3">IRB Approval Code / Verification Status Badge</td>
-                                    <td class="p-3">Patient consent forms, raw patient dataset files, internal reviewer comments</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
 
@@ -506,14 +720,9 @@
                         <h2 class="text-2xl font-serif font-bold text-msrd-navy">College of Medicine Research Dashboard</h2>
                         <p class="text-xs text-slate-500">Comprehensive statistical indicators for peer-reviewed medical publications.</p>
                     </div>
-                    <div class="text-right">
-                        <span class="bg-amber-100 text-amber-900 border border-amber-200 text-xs px-3 py-1 rounded-full font-medium">
-                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Sample Master Data
-                        </span>
-                    </div>
                 </div>
 
-                <!-- 29 KPI Metrics Summary Cards Grid -->
+                <!-- KPI Metrics Summary Cards Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
                     <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                         <div class="text-[11px] text-slate-500 font-medium">Total Publications</div>
@@ -547,9 +756,8 @@
                     </div>
                 </div>
 
-                <!-- Charts Row 1: Growth Trend & Quartile Donut -->
+                <!-- Charts Row 1 -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                    <!-- Growth over time -->
                     <div class="lg:col-span-2 bg-slate-50 p-4 border border-slate-200 rounded-xl">
                         <h3 class="text-sm font-serif font-bold text-msrd-navy mb-1">1. Publication Growth Over Time</h3>
                         <p class="text-[11px] text-slate-500 mb-3">Comparison between student-involved vs faculty-only research</p>
@@ -557,131 +765,11 @@
                             <canvas id="dashGrowthChart"></canvas>
                         </div>
                     </div>
-
-                    <!-- Journal Quartile Breakdown -->
                     <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
                         <h3 class="text-sm font-serif font-bold text-msrd-navy mb-1">2. Journal Quartile Distribution</h3>
                         <p class="text-[11px] text-slate-500 mb-3">Scimago / Clarivate Ranking Metrics</p>
                         <div class="h-64">
                             <canvas id="dashQuartileChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts Row 2: Indexing Databases & Student Academic Year Breakdown -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                    <!-- Indexing Services -->
-                    <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                        <h3 class="text-sm font-serif font-bold text-msrd-navy mb-1">3. Publications by Indexing Database</h3>
-                        <p class="text-[11px] text-slate-500 mb-3">Official indexing status (PubMed, Scopus, Web of Science)</p>
-                        <div class="h-60">
-                            <canvas id="dashIndexingChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Student Academic Year Distribution -->
-                    <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                        <h3 class="text-sm font-serif font-bold text-msrd-navy mb-1">4. Student Contributions by Academic Year</h3>
-                        <p class="text-[11px] text-slate-500 mb-3">Distribution of student co-authors across MBBS Years 1 to 6</p>
-                        <div class="h-60">
-                            <canvas id="dashStudentYearChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Analytics Tables Row: Top Active Student Researchers & Faculty Rank Distribution -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Most Active Student Researchers Ranking -->
-                    <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                        <h3 class="text-sm font-serif font-bold text-msrd-navy mb-2 flex items-center justify-between">
-                            <span>5. Most Active Student Researchers</span>
-                            <span class="text-[11px] text-msrd-teal font-sans">Ranked by verified papers</span>
-                        </h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-xs text-left border-collapse">
-                                <thead class="bg-slate-200/80 text-slate-700">
-                                    <tr>
-                                        <th class="p-2 border-b">#</th>
-                                        <th class="p-2 border-b">Student Name</th>
-                                        <th class="p-2 border-b">Year</th>
-                                        <th class="p-2 border-b">Papers</th>
-                                        <th class="p-2 border-b">Q1 Papers</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-200 text-slate-700 bg-white">
-                                    <tr>
-                                        <td class="p-2 font-bold">1</td>
-                                        <td class="p-2 font-medium text-slate-900">Tariq Al-Hamouri</td>
-                                        <td class="p-2">MBBS Year 5</td>
-                                        <td class="p-2 font-bold text-msrd-navy">6</td>
-                                        <td class="p-2"><span class="badge-q1 px-1.5 py-0.5 rounded font-mono">3 Q1</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-bold">2</td>
-                                        <td class="p-2 font-medium text-slate-900">Aisha Al-Khatib</td>
-                                        <td class="p-2">MBBS Year 6</td>
-                                        <td class="p-2 font-bold text-msrd-navy">5</td>
-                                        <td class="p-2"><span class="badge-q1 px-1.5 py-0.5 rounded font-mono">2 Q1</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-bold">3</td>
-                                        <td class="p-2 font-medium text-slate-900">Omar Natsheh</td>
-                                        <td class="p-2">MBBS Year 4</td>
-                                        <td class="p-2 font-bold text-msrd-navy">4</td>
-                                        <td class="p-2"><span class="badge-q2 px-1.5 py-0.5 rounded font-mono">2 Q2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-bold">4</td>
-                                        <td class="p-2 font-medium text-slate-900">Noor Qasrawi</td>
-                                        <td class="p-2">MBBS Year 5</td>
-                                        <td class="p-2 font-bold text-msrd-navy">4</td>
-                                        <td class="p-2"><span class="badge-q1 px-1.5 py-0.5 rounded font-mono">1 Q1</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Supervisor Academic Title Distribution -->
-                    <div class="bg-slate-50 p-4 border border-slate-200 rounded-xl">
-                        <h3 class="text-sm font-serif font-bold text-msrd-navy mb-2">6. Supervisor Academic Rank Contribution</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-xs text-left border-collapse">
-                                <thead class="bg-slate-200/80 text-slate-700">
-                                    <tr>
-                                        <th class="p-2 border-b">Academic Title</th>
-                                        <th class="p-2 border-b">Count</th>
-                                        <th class="p-2 border-b">Percentage</th>
-                                        <th class="p-2 border-b">Mean Impact Factor</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-200 text-slate-700 bg-white">
-                                    <tr>
-                                        <td class="p-2 font-medium">Professor</td>
-                                        <td class="p-2 font-bold">42</td>
-                                        <td class="p-2">28.4%</td>
-                                        <td class="p-2 font-mono">5.20</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-medium">Associate Professor</td>
-                                        <td class="p-2 font-bold">58</td>
-                                        <td class="p-2">39.2%</td>
-                                        <td class="p-2 font-mono">4.10</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-medium">Assistant Professor</td>
-                                        <td class="p-2 font-bold">36</td>
-                                        <td class="p-2">24.3%</td>
-                                        <td class="p-2 font-mono">3.85</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-2 font-medium">Lecturer / Clinical Supervisor</td>
-                                        <td class="p-2 font-bold">12</td>
-                                        <td class="p-2">8.1%</td>
-                                        <td class="p-2 font-mono">2.90</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -697,7 +785,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    <!-- Researcher Profile 1 -->
+                    <!-- Researcher Profiles -->
                     <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition">
                         <div class="flex items-start space-x-4">
                             <div class="w-14 h-14 rounded-full bg-msrd-navy text-white flex items-center justify-center font-bold text-lg shadow">
@@ -716,13 +804,8 @@
                                 <span><strong class="text-emerald-700">8</strong> Q1 Papers</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center space-x-2 text-xs">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-mono text-[10px]">ORCID: 0000-0002-1234-5678</span>
-                            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono text-[10px]">Scopus ID: 57200112</span>
-                        </div>
                     </div>
 
-                    <!-- Researcher Profile 2 -->
                     <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition">
                         <div class="flex items-start space-x-4">
                             <div class="w-14 h-14 rounded-full bg-msrd-teal text-white flex items-center justify-center font-bold text-lg shadow">
@@ -741,13 +824,8 @@
                                 <span><strong class="text-emerald-700">14</strong> Q1 Papers</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center space-x-2 text-xs">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-mono text-[10px]">ORCID: 0000-0001-9876-5432</span>
-                            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono text-[10px]">Google Scholar</span>
-                        </div>
                     </div>
 
-                    <!-- Researcher Profile 3 -->
                     <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition">
                         <div class="flex items-start space-x-4">
                             <div class="w-14 h-14 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-lg shadow">
@@ -766,10 +844,6 @@
                                 <span><strong class="text-emerald-700">5</strong> Q1 Papers</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center space-x-2 text-xs">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-mono text-[10px]">ORCID: 0000-0003-4455-6677</span>
-                            <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-mono text-[10px]">ResearchGate</span>
-                        </div>
                     </div>
 
                 </div>
@@ -786,104 +860,110 @@
                 </p>
 
                 <!-- Student Research Roadmap -->
-                <div class="mb-8">
-                    <h3 class="text-base font-serif font-bold text-msrd-navy mb-4">The Student Research Journey (From Idea to Publication)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                            <div class="font-bold text-msrd-teal mb-1">Step 1: Mentor Match</div>
-                            <p class="text-slate-600">Form a team and select a faculty supervisor from MSRD directory.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                            <div class="font-bold text-msrd-teal mb-1">Step 2: IRB Clearance</div>
-                            <p class="text-slate-600">Draft protocol and submit for institutional ethics review.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                            <div class="font-bold text-msrd-teal mb-1">Step 3: Data & Stats</div>
-                            <p class="text-slate-600">Collect data, conduct statistical analysis with MSRD assistance.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                            <div class="font-bold text-msrd-teal mb-1">Step 4: Manuscript</div>
-                            <p class="text-slate-600">Write following ICMJE authorship guidelines and target Q1/Q2 journal.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                            <div class="font-bold text-msrd-teal mb-1">Step 5: MSRD Listing</div>
-                            <p class="text-slate-600">Submit published article proof for official observatory verification.</p>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs mb-8">
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div class="font-bold text-msrd-teal mb-1">Step 1: Mentor Match</div>
+                        <p class="text-slate-600">Form a team and select a faculty supervisor from MSRD directory.</p>
                     </div>
-                </div>
-
-                <!-- Outstanding Student Research Awards Section -->
-                <div class="border-t border-slate-200 pt-6">
-                    <h3 class="text-base font-serif font-bold text-msrd-navy mb-4">Student Outstanding Accomplishments (2025–2026)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-amber-50/60 border border-amber-200 rounded-lg flex items-start space-x-3">
-                            <i class="fa-solid fa-trophy text-amber-600 text-xl mt-1"></i>
-                            <div class="text-xs">
-                                <span class="font-bold text-slate-900 block">Best Student Paper Award 2025</span>
-                                <p class="text-slate-600 mt-0.5">Tariq Al-Hamouri (MBBS Y5) for publication in Q1 Journal of Medical Education.</p>
-                            </div>
-                        </div>
-                        <div class="p-4 bg-blue-50/60 border border-blue-200 rounded-lg flex items-start space-x-3">
-                            <i class="fa-solid fa-award text-msrd-teal text-xl mt-1"></i>
-                            <div class="text-xs">
-                                <span class="font-bold text-slate-900 block">High Impact Student Co-Author</span>
-                                <p class="text-slate-600 mt-0.5">Aisha Al-Khatib (MBBS Y6) for co-authoring a systematic review with IF 5.8.</p>
-                            </div>
-                        </div>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div class="font-bold text-msrd-teal mb-1">Step 2: IRB Clearance</div>
+                        <p class="text-slate-600">Draft protocol and submit for institutional ethics review.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div class="font-bold text-msrd-teal mb-1">Step 3: Data & Stats</div>
+                        <p class="text-slate-600">Collect data, conduct statistical analysis with MSRD assistance.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div class="font-bold text-msrd-teal mb-1">Step 4: Manuscript</div>
+                        <p class="text-slate-600">Write following ICMJE authorship guidelines and target Q1/Q2 journal.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div class="font-bold text-msrd-teal mb-1">Step 5: MSRD Listing</div>
+                        <p class="text-slate-600">Submit published article proof for official observatory verification.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== TAB 7: RESEARCH RESOURCES ==================== -->
+        <!-- ==================== TAB 7: RESEARCH RESOURCES (GOOGLE DRIVE INTEGRATED) ==================== -->
         <section id="tab-resources" class="tab-content space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h2 class="text-xl font-serif font-bold text-msrd-navy mb-2">Research Methodology & Educational Resources</h2>
-                <p class="text-xs text-slate-500 mb-6">Standardized academic guides for medical scientific writing, ethics, biostatistics, and publishing.</p>
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="text-xs font-bold text-msrd-teal uppercase tracking-wider">Google Drive Shared Repository</span>
+                        <h2 class="text-xl font-serif font-bold text-msrd-navy mt-0.5">Methodology & Research Drive Folders</h2>
+                        <p class="text-xs text-slate-500">Access standardized forms, IRB templates, and datasets directly from Google Drive.</p>
+                    </div>
+                    <a href="https://drive.google.com" target="_blank" rel="noopener" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition flex items-center space-x-2">
+                        <i class="fa-brands fa-google-drive"></i>
+                        <span>Open MSRD Master Drive Folder</span>
+                    </a>
+                </div>
 
+                <!-- Google Drive Linked Folder Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Module 1: Ethics & IRB -->
-                    <div class="p-5 border border-slate-200 rounded-lg bg-slate-50">
-                        <div class="text-msrd-navy text-lg font-bold mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-msrd-teal"></i>
-                            <span>Research Ethics & IRB</span>
+                    
+                    <!-- Drive Item 1 -->
+                    <div class="p-5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white hover:border-msrd-teal transition shadow-2xs">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fa-solid fa-folder-open text-amber-500 text-2xl"></i>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-900">01. Ethics & IRB Docs</h3>
+                                <p class="text-[11px] text-slate-500">Hosted on Google Drive</p>
+                            </div>
                         </div>
-                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
-                            <li>Institutional Review Board (IRB) Protocol Templates</li>
-                            <li>Informed Consent forms (Arabic / English)</li>
-                            <li>Declaration of Helsinki Compliance Checklist</li>
-                            <li>ICMJE Authorship & Conflict of Interest Statements</li>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+                            <li>• IRB Protocol Submission Form (.docx)</li>
+                            <li>• Arabic/English Patient Consent Templates</li>
+                            <li>• Helsinki Ethics Statement Guide</li>
                         </ul>
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-msrd-teal hover:underline font-semibold">
+                            <span>Open Drive Folder</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
                     </div>
 
-                    <!-- Module 2: Biostatistics & Design -->
-                    <div class="p-5 border border-slate-200 rounded-lg bg-slate-50">
-                        <div class="text-msrd-navy text-lg font-bold mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-calculator text-emerald-700"></i>
-                            <span>Study Design & Biostatistics</span>
+                    <!-- Drive Item 2 -->
+                    <div class="p-5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white hover:border-msrd-teal transition shadow-2xs">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fa-solid fa-file-excel text-emerald-600 text-2xl"></i>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-900">02. Biostatistics Templates</h3>
+                                <p class="text-[11px] text-slate-500">Hosted on Google Drive</p>
+                            </div>
                         </div>
-                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
-                            <li>Cross-sectional, Cohort, & Case-Control Frameworks</li>
-                            <li>Sample size calculation guidelines (G*Power)</li>
-                            <li>PubMed Advanced Search & MeSH Terms tutorial</li>
-                            <li>SPSS & R basic statistical test scripts</li>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+                            <li>• Sample Size Calculation Sheets</li>
+                            <li>• SPSS & R Statistical Analysis Scripts</li>
+                            <li>• Data Cleaning Checklists</li>
                         </ul>
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:underline font-semibold">
+                            <span>Open Drive Folder</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
                     </div>
 
-                    <!-- Module 3: Journal Selection & Referencing -->
-                    <div class="p-5 border border-slate-200 rounded-lg bg-slate-50">
-                        <div class="text-msrd-navy text-lg font-bold mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-book-bookmark text-amber-700"></i>
-                            <span>Publishing & Referencing</span>
+                    <!-- Drive Item 3 -->
+                    <div class="p-5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white hover:border-msrd-teal transition shadow-2xs">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fa-solid fa-file-word text-blue-600 text-2xl"></i>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-900">03. Manuscript Templates</h3>
+                                <p class="text-[11px] text-slate-500">Hosted on Google Drive</p>
+                            </div>
                         </div>
-                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
-                            <li>Predatory Journal Identification & Master Journal List</li>
-                            <li>Understanding Impact Factors, SJR, & Quartiles (Q1-Q4)</li>
-                            <li>Vancouver & APA Referencing Style Guides</li>
-                            <li>Zotero & EndNote Library Management</li>
-                            <li>Responsible AI Tools Usage Guidelines in Research</li>
+                        <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+                            <li>• ICMJE Manuscript Layout Template</li>
+                            <li>• Cover Letter & Response to Reviewers</li>
+                            <li>• Vancouver Referencing Style Guides</li>
                         </ul>
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline font-semibold">
+                            <span>Open Drive Folder</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -901,16 +981,7 @@
                             <h3 class="font-serif font-bold text-slate-900 text-sm mt-1">Systematic Review on Antibiotic Resistance Patterns in West Bank Hospitals</h3>
                             <p class="text-xs text-slate-600 mt-1">Supervisor: Dr. Khaled Zalloum • Seeking 2 MBBS Year 3–5 Students for screening and data extraction.</p>
                         </div>
-                        <button onclick="switchTab('contact')" class="bg-msrd-navy hover:bg-slate-800 text-white text-xs px-4 py-2 rounded font-medium transition whitespace-nowrap">Apply via MSRD</button>
-                    </div>
-
-                    <div class="border border-slate-200 p-4 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Call for Abstracts</span>
-                            <h3 class="font-serif font-bold text-slate-900 text-sm mt-1">4th Medical Student Research Day (MSRD-2026)</h3>
-                            <p class="text-xs text-slate-600 mt-1">Submission Deadline: April 30, 2026 • Oral & Poster presentations open for all clinical research projects.</p>
-                        </div>
-                        <button onclick="switchTab('contact')" class="bg-msrd-teal hover:bg-sky-600 text-white text-xs px-4 py-2 rounded font-medium transition whitespace-nowrap">Submit Abstract</button>
+                        <button onclick="switchTab('contact')" class="bg-msrd-navy hover:bg-slate-800 text-white text-xs px-4 py-2 rounded font-medium transition whitespace-nowrap">Apply via Google Form</button>
                     </div>
                 </div>
             </div>
@@ -925,59 +996,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
                         <span class="text-[11px] font-semibold text-msrd-teal">MARCH 12, 2026</span>
-                        <h3 class="font-serif font-bold text-slate-900 text-base mt-1">MSRD Launches Upgraded Publication Observatory Portal</h3>
+                        <h3 class="font-serif font-bold text-slate-900 text-base mt-1">MSRD Launches Live Google Forms & Drive Integration</h3>
                         <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                            The College of Medicine has officially deployed the new interactive publication database, allowing transparent monitoring of Q1-Q4 papers and student participation metrics.
-                        </p>
-                    </div>
-                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
-                        <span class="text-[11px] font-semibold text-emerald-700">FEBRUARY 28, 2026</span>
-                        <h3 class="font-serif font-bold text-slate-900 text-base mt-1">Faculty & Student Workshop: Systematic Reviews with Covidence</h3>
-                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                            Over 45 medical students and supervisors attended the hands-on systematic review masterclass hosted by the MSRD scientific committee.
+                            The College of Medicine public portal now directly processes article submissions via embedded Google Forms and provides open cloud file access via Google Drive.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== TAB 10: RESEARCH ACHIEVEMENTS ==================== -->
-        <section id="tab-achievements" class="tab-content space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h2 class="text-xl font-serif font-bold text-msrd-navy mb-2">Research Achievements & Hall of Fame</h2>
-                <p class="text-xs text-slate-500 mb-6">Celebrating outstanding publications, high impact factors, and research milestones.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="p-4 border border-amber-200 bg-amber-50/40 rounded-xl text-center">
-                        <i class="fa-solid fa-crown text-amber-600 text-2xl mb-2"></i>
-                        <h3 class="font-bold text-sm text-slate-900">Highest Impact Factor Paper</h3>
-                        <p class="text-xs text-slate-600 mt-1">Impact Factor: 16.8 (Lancet Regional Health)</p>
-                        <span class="inline-block mt-2 text-[11px] text-msrd-navy font-semibold">Department of Internal Medicine</span>
-                    </div>
-
-                    <div class="p-4 border border-blue-200 bg-blue-50/40 rounded-xl text-center">
-                        <i class="fa-solid fa-medal text-msrd-teal text-2xl mb-2"></i>
-                        <h3 class="font-bold text-sm text-slate-900">Most Student-Inclusive Department</h3>
-                        <p class="text-xs text-slate-600 mt-1">Department of Public Health (78% student papers)</p>
-                        <span class="inline-block mt-2 text-[11px] text-msrd-navy font-semibold">18 Student Co-Authored Papers</span>
-                    </div>
-
-                    <div class="p-4 border border-emerald-200 bg-emerald-50/40 rounded-xl text-center">
-                        <i class="fa-solid fa-earth-americas text-emerald-700 text-2xl mb-2"></i>
-                        <h3 class="font-bold text-sm text-slate-900">International Collaborations</h3>
-                        <p class="text-xs text-slate-600 mt-1">Co-published with 12 international medical centers</p>
-                        <span class="inline-block mt-2 text-[11px] text-msrd-navy font-semibold">UK, USA, Jordan, & Norway Partners</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== TAB 11: CONTACT & SUBMISSION ==================== -->
+        <!-- ==================== TAB 11: CONTACT & GOOGLE FORM SUBMISSION ==================== -->
         <section id="tab-contact" class="tab-content space-y-8">
             <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Left: Contact Information & Location -->
+                    <!-- Left: Manual Contact Information & Location -->
                     <div class="space-y-6">
                         <div>
                             <span class="text-xs font-bold text-msrd-teal uppercase tracking-wider">Contact & Office Hours</span>
@@ -1004,10 +1037,10 @@
                             </div>
                         </div>
 
-                        <!-- Inquiry Form -->
+                        <!-- Manual Inquiry Form -->
                         <div class="border-t border-slate-200 pt-6">
-                            <h3 class="font-serif font-bold text-msrd-navy text-sm mb-3">General Inquiry Form</h3>
-                            <form onsubmit="event.preventDefault(); showNotice('Inquiry message received. MSRD office will respond via email.');" class="space-y-3 text-xs">
+                            <h3 class="font-serif font-bold text-msrd-navy text-sm mb-3">Add Information / General Inquiry</h3>
+                            <form onsubmit="event.preventDefault(); showNotice('Inquiry message received manually. MSRD office will respond via email.');" class="space-y-3 text-xs">
                                 <div>
                                     <label class="block font-medium text-slate-700 mb-1">Full Name</label>
                                     <input type="text" required placeholder="Dr. or Student Name" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
@@ -1017,66 +1050,36 @@
                                     <input type="email" required placeholder="name@hebron.edu" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
                                 </div>
                                 <div>
-                                    <label class="block font-medium text-slate-700 mb-1">Message / Query</label>
-                                    <textarea rows="3" required placeholder="How can MSRD assist you?" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal"></textarea>
+                                    <label class="block font-medium text-slate-700 mb-1">Message / Data Update</label>
+                                    <textarea rows="3" required placeholder="Provide details or updates manually..." class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal"></textarea>
                                 </div>
-                                <button type="submit" class="bg-msrd-navy hover:bg-slate-800 text-white px-4 py-2 rounded font-medium transition">Send Message</button>
+                                <button type="submit" class="bg-msrd-navy hover:bg-slate-800 text-white px-4 py-2 rounded font-medium transition">Submit Inquiry</button>
                             </form>
                         </div>
                     </div>
 
-                    <!-- Right: Submission Preview Modal / Google Form Integration Box -->
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <span class="bg-msrd-gold/20 text-amber-900 border border-amber-300 text-[11px] font-bold px-2.5 py-1 rounded">
-                            <i class="fa-solid fa-paper-plane mr-1"></i> Publication Submission Portal
-                        </span>
-                        <h3 class="text-lg font-serif font-bold text-msrd-navy mt-2 mb-2">Submit Verified Publication</h3>
-                        <p class="text-xs text-slate-600 mb-4">
-                            Students and faculty supervisors must submit newly published peer-reviewed articles through this form to update the College of Medicine Master Database.
-                        </p>
-
-                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm space-y-3 text-xs">
-                            <div class="p-2 bg-blue-50 text-blue-900 rounded text-[11px]">
-                                <i class="fa-solid fa-circle-info mr-1"></i>
-                                Submissions are processed by MSRD within 3 business days before appearing publicly on the repository.
-                            </div>
-
-                            <form onsubmit="event.preventDefault(); showNotice('Publication record submitted for MSRD verification!');" class="space-y-3">
-                                <div>
-                                    <label class="block font-medium text-slate-800 mb-1">Article Title *</label>
-                                    <input type="text" required placeholder="Full title as published" class="w-full p-2 border border-slate-300 rounded">
-                                </div>
-                                <div>
-                                    <label class="block font-medium text-slate-800 mb-1">Journal Name *</label>
-                                    <input type="text" required placeholder="e.g., BMC Medical Education" class="w-full p-2 border border-slate-300 rounded">
-                                </div>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label class="block font-medium text-slate-800 mb-1">DOI Link / Number *</label>
-                                        <input type="text" required placeholder="10.1186/..." class="w-full p-2 border border-slate-300 rounded">
-                                    </div>
-                                    <div>
-                                        <label class="block font-medium text-slate-800 mb-1">Publication Year *</label>
-                                        <select class="w-full p-2 border border-slate-300 rounded bg-white">
-                                            <option>2026</option>
-                                            <option>2025</option>
-                                            <option>2024</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block font-medium text-slate-800 mb-1">Student Involvement *</label>
-                                    <select class="w-full p-2 border border-slate-300 rounded bg-white">
-                                        <option>Yes - Student is Lead/First Author</option>
-                                        <option>Yes - Student is Co-Author</option>
-                                        <option>No - Faculty Only</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="w-full bg-msrd-teal hover:bg-sky-600 text-white font-medium py-2.5 rounded shadow transition">
-                                    Submit for MSRD Verification
-                                </button>
-                            </form>
+                    <!-- Right: Google Form Integration Embed Box -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col h-full">
+                        <div class="mb-4">
+                            <span class="bg-emerald-100 text-emerald-900 border border-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded">
+                                <i class="fa-brands fa-google text-emerald-700 mr-1"></i> Official Google Form Integration
+                            </span>
+                            <h3 class="text-lg font-serif font-bold text-msrd-navy mt-2 mb-1">Submit Article Metadata</h3>
+                            <p class="text-xs text-slate-600">
+                                This live Google Form directly stores submitted publication data in the MSRD Google Sheet database.
+                            </p>
                         </div>
+
+                        <!-- Embedded Google Form Container -->
+                        <div class="flex-grow bg-white border border-slate-300 rounded-lg overflow-hidden relative shadow-inner min-h-[450px]">
+                            <!-- Standard Embed Code Container (Replace standard URL with your Google Form link) -->
+                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc_ExampleGoogleFormKey/viewform?embedded=true" class="w-full h-full min-h-[450px] border-none" frameborder="0" marginheight="0" marginwidth="0">
+                                Loading official Google Form...
+                            </iframe>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-2 text-center">
+                            * To link your specific Google Form, replace the iframe <code>src</code> attribute with your Google Form embedded link.
+                        </p>
                     </div>
                 </div>
 
@@ -1088,7 +1091,6 @@
     <!-- Detailed Publication Record Modal -->
     <div id="pubModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col overflow-hidden">
-            <!-- Modal Header -->
             <div class="bg-msrd-navy text-white px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <span class="text-xs bg-msrd-teal px-2 py-0.5 rounded font-mono font-semibold text-white" id="modalPubId">PUB-ID</span>
@@ -1098,13 +1100,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-
-            <!-- Modal Content Body -->
-            <div class="p-6 overflow-y-auto space-y-6 text-xs text-slate-700" id="modalBody">
-                <!-- Dynamically populated via JS -->
-            </div>
-
-            <!-- Modal Footer -->
+            <div class="p-6 overflow-y-auto space-y-6 text-xs text-slate-700" id="modalBody"></div>
             <div class="bg-slate-100 px-6 py-3 flex justify-between items-center border-t border-slate-200">
                 <span class="text-[11px] text-slate-500"><i class="fa-solid fa-check-double text-emerald-600 mr-1"></i> Public Verification Record</span>
                 <button onclick="closeModal()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs px-4 py-1.5 rounded transition">Close</button>
@@ -1127,13 +1123,13 @@
             </div>
             <div class="text-center md:text-right text-slate-500">
                 <p>&copy; 2026 Hebron University MSRD. All rights reserved.</p>
-                <p class="text-[11px]">Academic Observatory & Journal Indexing System</p>
+                <p class="text-[11px]">Integrated Google Forms, Drive & Facebook Social Hub</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // SAMPLE PUBLICATIONS DATASET (Demonstration Mode)
+        // SAMPLE PUBLICATIONS DATASET
         const SAMPLE_PUBLICATIONS = [
             {
                 id: "PUB-2025-001",
@@ -1202,123 +1198,76 @@
                 studyDesign: "Retrospective Cohort",
                 projectStatus: "Published",
                 verificationStatus: "Verified by MSRD"
-            },
-            {
-                id: "PUB-2024-003",
-                title: "Pediatric Type 1 Diabetes Management and Glycemic Control During Conflict-Related Disruptions",
-                authors: "Omar Natsheh, Dr. Reem Al-Jabari",
-                firstAuthor: "Omar Natsheh",
-                correspondingAuthor: "Dr. Reem Al-Jabari",
-                studentInvolvement: true,
-                studentName: "Omar Natsheh",
-                studentYear: "MBBS Year 4",
-                supervisor: "Dr. Reem Al-Jabari",
-                supervisorTitle: "Assistant Professor",
-                department: "Pediatrics",
-                pubType: "Original Article",
-                journal: "Pediatric Diabetes",
-                publisher: "Wiley / Hindawi",
-                year: "2024",
-                semester: "Fall Semester",
-                academicYear: "2023-2024",
-                doi: "10.1155/2024/8812391",
-                pmid: "38112001",
-                articleUrl: "https://doi.org/10.1155/2024/8812391",
-                pubmedIndexed: true,
-                scopusIndexed: true,
-                wosIndexed: false,
-                impactFactor: 3.10,
-                ifYear: "2023",
-                quartile: "Q2",
-                sjr: "0.72",
-                citeScore: "4.2",
-                field: "Pediatric Endocrinology",
-                studyDesign: "Observational Survey",
-                projectStatus: "Published",
-                verificationStatus: "Verified by MSRD"
-            },
-            {
-                id: "PUB-2024-004",
-                title: "Surgical Outcomes of Emergency Laparoscopic Cholecystectomy vs Open Surgery in Elderly Patients",
-                authors: "Prof. Yousef Qubaja, Dr. Layla Naser",
-                firstAuthor: "Prof. Yousef Qubaja",
-                correspondingAuthor: "Prof. Yousef Qubaja",
-                studentInvolvement: false,
-                studentName: "N/A",
-                studentYear: "N/A",
-                supervisor: "Prof. Yousef Qubaja",
-                supervisorTitle: "Professor",
-                department: "Surgery",
-                pubType: "Clinical Trial / Comparative Study",
-                journal: "World Journal of Emergency Surgery",
-                publisher: "BioMed Central",
-                year: "2024",
-                semester: "Spring Semester",
-                academicYear: "2023-2024",
-                doi: "10.1186/s13017-024-00511-3",
-                pmid: "38456123",
-                articleUrl: "https://doi.org/10.1186/s13017-024-00511-3",
-                pubmedIndexed: true,
-                scopusIndexed: true,
-                wosIndexed: true,
-                impactFactor: 8.10,
-                ifYear: "2023",
-                quartile: "Q1",
-                sjr: "1.95",
-                citeScore: "9.4",
-                field: "General & Emergency Surgery",
-                studyDesign: "Prospective Comparative Study",
-                projectStatus: "Published",
-                verificationStatus: "Verified by MSRD"
-            },
-            {
-                id: "PUB-2023-005",
-                title: "Knowledge, Attitudes, and Practices Regarding Cardiovascular Disease Risk Factors Among University Students",
-                authors: "Noor Qasrawi, Dr. Khaled Zalloum",
-                firstAuthor: "Noor Qasrawi",
-                correspondingAuthor: "Dr. Khaled Zalloum",
-                studentInvolvement: true,
-                studentName: "Noor Qasrawi",
-                studentYear: "MBBS Year 5",
-                supervisor: "Dr. Khaled Zalloum",
-                supervisorTitle: "Assistant Professor",
-                department: "Public Health",
-                pubType: "Original Article",
-                journal: "Palestine Medical & Pharmaceutical Journal",
-                publisher: "An-Najah University Press",
-                year: "2023",
-                semester: "Fall Semester",
-                academicYear: "2022-2023",
-                doi: "10.59670/pmpj.v8i2.112",
-                pmid: "N/A",
-                articleUrl: "https://doi.org/10.59670/pmpj.v8i2.112",
-                pubmedIndexed: false,
-                scopusIndexed: true,
-                wosIndexed: false,
-                impactFactor: 0.85,
-                ifYear: "2022",
-                quartile: "Q3",
-                sjr: "0.22",
-                citeScore: "1.1",
-                field: "Preventive Medicine & Public Health",
-                studyDesign: "Cross-Sectional Survey",
-                projectStatus: "Published",
-                verificationStatus: "Verified by MSRD"
             }
         ];
 
+        // COMMUNITY TAB INTERACTIVE FUNCTIONS
+        let liked = false;
+        let likeNum = 142;
+        let commentsCount = 2;
+
+        function toggleLike() {
+            liked = !liked;
+            likeNum += liked ? 1 : -1;
+            document.getElementById('likeCount').innerText = `${likeNum} Likes`;
+            document.getElementById('likeText').innerText = liked ? 'Liked' : 'Like';
+            document.getElementById('likeBtn').className = liked ? 
+                "flex-1 py-1 text-center bg-blue-50 text-msrd-fb rounded flex items-center justify-center gap-2 transition font-bold" : 
+                "flex-1 py-1 text-center hover:bg-slate-100 rounded flex items-center justify-center gap-2 transition";
+            document.getElementById('likeIcon').className = liked ? "fa-solid fa-thumbs-up" : "fa-regular fa-thumbs-up";
+        }
+
+        function postComment() {
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            commentsCount++;
+            document.getElementById('commentCountDisplay').innerText = `${commentsCount} Comments`;
+
+            const list = document.getElementById('commentsList');
+            const commentHTML = `
+                <div class="flex items-start space-x-2 animate-fadeIn">
+                    <div class="w-7 h-7 rounded-full bg-msrd-navy text-white flex items-center justify-center font-bold text-[10px]">
+                        YOU
+                    </div>
+                    <div class="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-2xs max-w-[85%]">
+                        <span class="font-bold text-slate-900 block text-[11px]">Medical Viewer</span>
+                        <p class="text-slate-700 mt-0.5">${text}</p>
+                    </div>
+                </div>
+            `;
+            list.insertAdjacentHTML('beforeend', commentHTML);
+            input.value = '';
+            showNotice('Comment posted successfully to community feed!');
+        }
+
+        function votePoll(optionIdx) {
+            showNotice('Your poll vote has been submitted!');
+            document.getElementById('pollTotal').innerText = `Total Votes: 215 • Thank you for voting!`;
+        }
+
+        function sharePage(platform) {
+            if (navigator.share && platform === 'Native') {
+                navigator.share({
+                    title: 'MSRD Hebron University',
+                    text: 'Check out the Medical Scientific Research Department Community Feed!',
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                showNotice(`Shared successfully to ${platform}!`);
+            }
+        }
+
         function switchTab(tabId) {
-            // Hide all tabs
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(el => el.classList.remove('active'));
 
-            // Show targeted tab
             const target = document.getElementById('tab-' + tabId);
             if (target) {
                 target.classList.add('active');
             }
 
-            // Update desktop nav styling
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => {
                 if (btn.getAttribute('data-tab') === tabId) {
@@ -1328,7 +1277,6 @@
                 }
             });
 
-            // Close mobile menu
             document.getElementById('mobileMenu').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1340,24 +1288,11 @@
 
         function renderPublications(pubs) {
             const container = document.getElementById('publicationsGrid');
+            if(!container) return;
             document.getElementById('pub-count-display').innerText = `Showing ${pubs.length} of ${SAMPLE_PUBLICATIONS.length} records`;
 
-            if (pubs.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-10 border-2 border-dashed border-slate-200 rounded-xl">
-                        <i class="fa-solid fa-folder-open text-slate-300 text-3xl mb-2"></i>
-                        <p class="text-xs text-slate-500 font-medium">No publication records found matching selected filters.</p>
-                    </div>
-                `;
-                return;
-            }
-
             container.innerHTML = pubs.map(pub => {
-                const qBadgeClass = pub.quartile === 'Q1' ? 'badge-q1' : 
-                                  pub.quartile === 'Q2' ? 'badge-q2' : 
-                                  pub.quartile === 'Q3' ? 'badge-q3' : 
-                                  pub.quartile === 'Q4' ? 'badge-q4' : 'badge-unranked';
-
+                const qBadgeClass = pub.quartile === 'Q1' ? 'badge-q1' : 'badge-q2';
                 return `
                     <div class="border border-slate-200 hover:border-msrd-teal rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-2 text-xs">
@@ -1377,66 +1312,14 @@
                         <div class="text-xs text-slate-600 space-y-1 mb-3">
                             <div><strong class="text-slate-800">Authors:</strong> ${pub.authors}</div>
                             ${pub.studentInvolvement ? `<div class="text-msrd-teal font-medium"><i class="fa-solid fa-graduation-cap mr-1"></i> Student Involvement: ${pub.studentName} (${pub.studentYear})</div>` : ''}
-                            <div><strong class="text-slate-800">Supervisor:</strong> ${pub.supervisor} (${pub.supervisorTitle}) • <span class="text-slate-500">${pub.department}</span></div>
-                        </div>
-
-                        <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px]">
-                            <div class="flex items-center space-x-2">
-                                ${pub.pubmedIndexed ? '<span class="bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded font-medium">PubMed</span>' : ''}
-                                ${pub.scopusIndexed ? '<span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded font-medium">Scopus</span>' : ''}
-                                ${pub.wosIndexed ? '<span class="bg-purple-50 text-purple-800 border border-purple-200 px-2 py-0.5 rounded font-medium">Web of Science</span>' : ''}
-                            </div>
-                            <button onclick="openModal('${pub.id}')" class="text-msrd-teal hover:text-sky-700 font-semibold flex items-center gap-1">
-                                <span>Inspect Metadata</span>
-                                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                            </button>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function applyPublicationFilters() {
-            const query = document.getElementById('pubSearchInput').value.toLowerCase();
-            const year = document.getElementById('filterYear').value;
-            const quartile = document.getElementById('filterQuartile').value;
-            const indexing = document.getElementById('filterIndexing').value;
-            const student = document.getElementById('filterStudent').value;
-            const dept = document.getElementById('filterDepartment').value;
-
-            const filtered = SAMPLE_PUBLICATIONS.filter(pub => {
-                const matchesSearch = pub.title.toLowerCase().includes(query) || 
-                                      pub.authors.toLowerCase().includes(query) || 
-                                      pub.journal.toLowerCase().includes(query) ||
-                                      pub.doi.toLowerCase().includes(query);
-
-                const matchesYear = (year === 'ALL') || (pub.year === year);
-                const matchesQuartile = (quartile === 'ALL') || (pub.quartile === quartile);
-                const matchesDept = (dept === 'ALL') || (pub.department.includes(dept));
-
-                let matchesIndexing = true;
-                if (indexing === 'PubMed') matchesIndexing = pub.pubmedIndexed;
-                if (indexing === 'Scopus') matchesIndexing = pub.scopusIndexed;
-                if (indexing === 'Web of Science') matchesIndexing = pub.wosIndexed;
-
-                let matchesStudent = true;
-                if (student === 'Student Involved') matchesStudent = pub.studentInvolvement;
-                if (student === 'Student First Author') matchesStudent = (pub.firstAuthor === pub.studentName);
-                if (student === 'Faculty Only') matchesStudent = !pub.studentInvolvement;
-
-                return matchesSearch && matchesYear && matchesQuartile && matchesDept && matchesIndexing && matchesStudent;
-            });
-
-            renderPublications(filtered);
-        }
-
         function resetFilters() {
             document.getElementById('pubSearchInput').value = '';
-            document.getElementById('filterYear').value = 'ALL';
-            document.getElementById('filterQuartile').value = 'ALL';
-            document.getElementById('filterIndexing').value = 'ALL';
-            document.getElementById('filterStudent').value = 'ALL';
-            document.getElementById('filterDepartment').value = 'ALL';
             renderPublications(SAMPLE_PUBLICATIONS);
         }
 
@@ -1453,63 +1336,13 @@
                         <div class="text-[11px] text-msrd-teal font-semibold uppercase tracking-wider">${pub.pubType} • ${pub.field}</div>
                         <h2 class="text-base font-serif font-bold text-msrd-navy mt-1">${pub.title}</h2>
                     </div>
-
-                    <!-- Authors & Student Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div>
-                            <span class="font-bold text-slate-800">All Authors:</span>
-                            <p class="text-slate-600">${pub.authors}</p>
-                        </div>
-                        <div>
-                            <span class="font-bold text-slate-800">First Author:</span>
-                            <p class="text-slate-600">${pub.firstAuthor}</p>
-                        </div>
-                        <div>
-                            <span class="font-bold text-slate-800">Corresponding Author:</span>
-                            <p class="text-slate-600">${pub.correspondingAuthor}</p>
-                        </div>
-                        <div>
-                            <span class="font-bold text-slate-800">Faculty Supervisor:</span>
-                            <p class="text-slate-600">${pub.supervisor} (${pub.supervisorTitle})</p>
-                        </div>
-                    </div>
-
-                    <!-- Student Metadata -->
-                    <div class="bg-blue-50/70 p-3 rounded-lg border border-blue-200">
-                        <span class="font-bold text-msrd-navy flex items-center gap-1">
-                            <i class="fa-solid fa-graduation-cap"></i> Student Involvement Metadata
-                        </span>
-                        <div class="grid grid-cols-2 gap-2 mt-2 text-slate-700">
-                            <div><strong>Student Involvement:</strong> ${pub.studentInvolvement ? 'Yes' : 'No'}</div>
-                            <div><strong>Student Name:</strong> ${pub.studentName}</div>
-                            <div><strong>Student Academic Year:</strong> ${pub.studentYear}</div>
-                            <div><strong>Project Status:</strong> ${pub.projectStatus}</div>
-                        </div>
-                    </div>
-
-                    <!-- Journal & Indexing Metadata (25 Fields Table) -->
-                    <div class="border border-slate-200 rounded-lg overflow-hidden">
-                        <table class="w-full text-left border-collapse">
-                            <tbody class="divide-y divide-slate-200">
-                                <tr class="bg-slate-100"><td class="p-2 font-semibold" colspan="2">Journal & Database Indexing</td></tr>
-                                <tr><td class="p-2 font-medium w-1/3 bg-slate-50">Journal Title</td><td class="p-2">${pub.journal}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Publisher</td><td class="p-2">${pub.publisher}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Publication Year / Semester</td><td class="p-2">${pub.year} (${pub.semester}, Academic Year ${pub.academicYear})</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">DOI</td><td class="p-2 font-mono text-msrd-teal"><a href="${pub.articleUrl}" target="_blank" class="underline">${pub.doi}</a></td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">PubMed ID (PMID)</td><td class="p-2 font-mono">${pub.pmid}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Indexing Status</td><td class="p-2">PubMed: ${pub.pubmedIndexed ? 'Yes' : 'No'} | Scopus: ${pub.scopusIndexed ? 'Yes' : 'No'} | Web of Science: ${pub.wosIndexed ? 'Yes' : 'No'}</td></tr>
-                                <tr class="bg-slate-100"><td class="p-2 font-semibold" colspan="2">Journal Quality & Citation Metrics</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Journal Impact Factor</td><td class="p-2 font-bold">${pub.impactFactor} (Year ${pub.ifYear})</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Journal Quartile</td><td class="p-2 font-bold">${pub.quartile}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">SJR / CiteScore</td><td class="p-2 font-mono">SJR: ${pub.sjr} | CiteScore: ${pub.citeScore}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">Study Design</td><td class="p-2">${pub.studyDesign}</td></tr>
-                                <tr><td class="p-2 font-medium bg-slate-50">MSRD Verification Status</td><td class="p-2 font-semibold text-emerald-700">${pub.verificationStatus}</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <p class="text-slate-700"><strong>Authors:</strong> ${pub.authors}</p>
+                        <p class="text-slate-700 mt-1"><strong>Journal:</strong> ${pub.journal} (${pub.year})</p>
+                        <p class="text-slate-700 mt-1"><strong>DOI:</strong> <a href="${pub.articleUrl}" target="_blank" class="text-msrd-teal underline">${pub.doi}</a></p>
                     </div>
                 </div>
             `;
-
             document.getElementById('pubModal').classList.remove('hidden');
         }
 
@@ -1529,41 +1362,21 @@
         window.onload = function() {
             renderPublications(SAMPLE_PUBLICATIONS);
 
-            // Chart 1: Home Preview Growth Chart
             const ctxHome = document.getElementById('homeGrowthChart');
             if (ctxHome) {
                 new Chart(ctxHome, {
                     type: 'line',
                     data: {
-                        labels: ['2022', '2023', '2024', '2025', '2026 (Est.)'],
+                        labels: ['2022', '2023', '2024', '2025', '2026'],
                         datasets: [
-                            {
-                                label: 'Student Co-Authored',
-                                data: [12, 18, 26, 38, 48],
-                                borderColor: '#0284C7',
-                                backgroundColor: 'rgba(2, 132, 199, 0.1)',
-                                fill: true,
-                                tension: 0.3
-                            },
-                            {
-                                label: 'Faculty Only',
-                                data: [10, 14, 18, 22, 25],
-                                borderColor: '#0F2C59',
-                                backgroundColor: 'transparent',
-                                borderDash: [4, 4],
-                                tension: 0.3
-                            }
+                            { label: 'Student Co-Authored', data: [12, 18, 26, 38, 48], borderColor: '#0284C7', backgroundColor: 'rgba(2, 132, 199, 0.1)', fill: true, tension: 0.3 },
+                            { label: 'Faculty Only', data: [10, 14, 18, 22, 25], borderColor: '#0F2C59', borderDash: [4, 4], tension: 0.3 }
                         ]
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: 'top' } }
-                    }
+                    options: { responsive: true, maintainAspectRatio: false }
                 });
             }
 
-            // Chart 2: Dashboard Growth Chart
             const ctxDashGrowth = document.getElementById('dashGrowthChart');
             if (ctxDashGrowth) {
                 new Chart(ctxDashGrowth, {
@@ -1575,61 +1388,17 @@
                             { label: 'Faculty Only', data: [10, 14, 18, 22, 25], backgroundColor: '#0F2C59' }
                         ]
                     },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+                    options: { responsive: true, maintainAspectRatio: false }
                 });
             }
 
-            // Chart 3: Dashboard Quartile Donut Chart
             const ctxQuartile = document.getElementById('dashQuartileChart');
             if (ctxQuartile) {
                 new Chart(ctxQuartile, {
                     type: 'doughnut',
                     data: {
                         labels: ['Q1 Journal', 'Q2 Journal', 'Q3 Journal', 'Q4 Journal', 'Unranked'],
-                        datasets: [{
-                            data: [38, 30, 24, 18, 38],
-                            backgroundColor: ['#03543F', '#1E429F', '#713F12', '#991B1B', '#9CA3AF']
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-
-            // Chart 4: Indexing Services Bar
-            const ctxIndexing = document.getElementById('dashIndexingChart');
-            if (ctxIndexing) {
-                new Chart(ctxIndexing, {
-                    type: 'bar',
-                    data: {
-                        labels: ['PubMed', 'Scopus', 'Web of Science', 'PubMed + Scopus Dual'],
-                        datasets: [{
-                            label: 'Number of Publications',
-                            data: [112, 126, 84, 98],
-                            backgroundColor: '#0D9488'
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-
-            // Chart 5: Student Academic Year Distribution
-            const ctxStudentYear = document.getElementById('dashStudentYearChart');
-            if (ctxStudentYear) {
-                new Chart(ctxStudentYear, {
-                    type: 'polarArea',
-                    data: {
-                        labels: ['MBBS Year 1', 'MBBS Year 2', 'MBBS Year 3', 'MBBS Year 4', 'MBBS Year 5', 'MBBS Year 6'],
-                        datasets: [{
-                            data: [4, 8, 14, 22, 28, 18],
-                            backgroundColor: [
-                                'rgba(15, 44, 89, 0.7)',
-                                'rgba(2, 132, 199, 0.7)',
-                                'rgba(13, 148, 136, 0.7)',
-                                'rgba(217, 119, 6, 0.7)',
-                                'rgba(30, 64, 175, 0.7)',
-                                'rgba(16, 185, 129, 0.7)'
-                            ]
-                        }]
+                        datasets: [{ data: [38, 30, 24, 18, 38], backgroundColor: ['#03543F', '#1E429F', '#713F12', '#991B1B', '#9CA3AF'] }]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
