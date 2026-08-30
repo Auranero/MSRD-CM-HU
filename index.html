@@ -101,6 +101,14 @@
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Submit Publication</span>
                     </button>
+                    <button id="adminLoginBtn" onclick="openAdminLogin()" class="bg-slate-700/80 hover:bg-slate-600 text-white text-xs font-semibold px-3 py-2 rounded-md shadow transition flex items-center space-x-1.5" title="Administrator access">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Admin</span>
+                    </button>
+                    <button id="adminLogoutBtn" onclick="adminLogout()" class="hidden bg-red-700 hover:bg-red-800 text-white text-xs font-semibold px-3 py-2 rounded-md shadow transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </button>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -117,6 +125,7 @@
                 <button onclick="switchTab('community')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition text-sky-300 font-semibold" data-tab="community"><i class="fa-brands fa-facebook mr-1"></i> Community Feed</button>
                 <button onclick="switchTab('about')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="about">About MSRD</button>
                 <button onclick="switchTab('publications')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="publications">Publications</button>
+                 <button onclick="switchTab('irb')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="irb"><i class="fa-solid fa-shield-halved mr-1"></i> IRB Submission</button>
                 <button onclick="switchTab('dashboard')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="dashboard">Research Dashboard</button>
                 <button onclick="switchTab('researchers')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="researchers">Researchers & Supervisors</button>
                 <button onclick="switchTab('student-research')" class="nav-btn px-3 py-1.5 rounded-md text-slate-200 hover:text-white hover:bg-slate-800 transition" data-tab="student-research">Student Research</button>
@@ -133,6 +142,7 @@
             <button onclick="switchTab('community')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-sky-300 font-semibold rounded hover:bg-slate-800"><i class="fa-brands fa-facebook mr-2"></i>2. Community & Facebook Profile</button>
             <button onclick="switchTab('about')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">3. About MSRD</button>
             <button onclick="switchTab('publications')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">4. Publications Repository</button>
+             <button onclick="switchTab('irb')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800"><i class="fa-solid fa-shield-halved mr-2"></i>5. IRB Submission</button>
             <button onclick="switchTab('dashboard')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">5. Research Dashboard</button>
             <button onclick="switchTab('researchers')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">6. Researchers & Supervisors</button>
             <button onclick="switchTab('student-research')" class="mobile-nav-btn block w-full text-left px-3 py-2 text-sm text-slate-200 rounded hover:bg-slate-800">7. Student Research</button>
@@ -183,8 +193,7 @@
                     <div class="flex items-center space-x-2">
                         <button onclick="sharePage('Facebook')" class="hover:text-msrd-fb transition"><i class="fa-brands fa-facebook"></i></button>
                         <button onclick="sharePage('Twitter')" class="hover:text-sky-500 transition"><i class="fa-brands fa-x-twitter"></i></button>
-                        <button onclick="sharePage('LinkedIn')" class="hover:text-blue-700 transition"><i class="fa-brands fa-linkedin"></i></button>
-                        <button onclick="sharePage('WhatsApp')" class="hover:text-emerald-600 transition"><i class="fa-brands fa-whatsapp"></i></button>
+                        <a href="https://www.linkedin.com/company/144799000/admin/page-posts/published/" target="_blank" rel="noopener noreferrer" aria-label="MSRD LinkedIn" class="hover:text-blue-700 transition"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -193,35 +202,21 @@
                 
                 <!-- Main Feed Column (2 cols) -->
                 <div class="lg:col-span-2 space-y-6">
-                    
-                    <!-- Feature 1: Audio Success Podcast / Announcement -->
+                    <!-- Feature 1: Administrator-Approved Video / Podcast Area -->
                     <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                         <div class="flex items-center space-x-3 mb-3">
                             <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
                                 <i class="fa-solid fa-podcast text-lg"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-sm text-slate-900">Hear Our Newest Success</h3>
-                                <p class="text-xs text-slate-500">Official Audio Briefing • Dr. Layla Naser (MSRD Board)</p>
+                                <h3 class="font-bold text-sm text-slate-900">MSRD Videos &amp; Podcasts</h3>
+                                <p class="text-xs text-slate-500">Only media uploaded and approved by the MSRD administrator is displayed here.</p>
                             </div>
                         </div>
-
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-3">
-                            <p class="text-xs text-slate-700 leading-relaxed">
-                                🎙️ <strong>Episode 14:</strong> "Celebrating 68 High-Impact Q1 Publications & The Launch of New Student Research Grants for 2026."
-                            </p>
-                            
-                            <!-- Audio Player HTML5 -->
-                            <div class="w-full bg-white p-3 rounded-md border border-slate-200 shadow-inner">
-                                <audio controls class="w-full h-10 rounded">
-                                    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <div class="flex justify-between items-center text-[10px] text-slate-500 mt-1">
-                                    <span>Audio duration: 2 mins 45 secs</span>
-                                    <span>Recorded: March 2026</span>
-                                </div>
-                            </div>
+                        <div id="adminMediaEmptyState" class="bg-slate-50 p-6 rounded-lg border border-dashed border-slate-300 text-center">
+                            <i class="fa-solid fa-photo-film text-3xl text-slate-400 mb-3"></i>
+                            <p class="text-xs text-slate-600">No administrator-approved video or podcast has been published yet.</p>
+                            <p class="text-[10px] text-slate-500 mt-1">Administrator: use the Admin Panel to upload approved media.</p>
                         </div>
                     </div>
 
@@ -373,24 +368,53 @@
                             <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">Live Feed Link</span>
                         </div>
 
-                        <!-- Embedded Facebook Page Plugin Frame Mockup / Real SDK placeholder -->
-                        <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-100 p-4 text-center space-y-3">
-                            <i class="fa-brands fa-facebook-square text-4xl text-msrd-fb"></i>
-                            <div>
-                                <h5 class="font-bold text-xs text-slate-900">MSRD - College of Medicine</h5>
-                                <p class="text-[11px] text-slate-500">Hebron University Official Page</p>
+                        <!-- Live Facebook Page Plugin -->
+                        <div class="border border-slate-200 rounded-lg overflow-hidden bg-white">
+                            <div class="p-3 text-center bg-slate-50 border-b border-slate-200">
+                                <p class="text-[11px] text-slate-600">Live feed from the official MSRD Facebook presence.</p>
                             </div>
-                            <p class="text-[11px] text-slate-600 italic">
-                                Connect your live Facebook feed directly using the Meta Page Plugin.
-                            </p>
-                            <a href="https://facebook.com" target="_blank" rel="noopener" class="inline-block bg-msrd-fb hover:bg-blue-700 text-white text-xs px-4 py-2 rounded font-medium transition">
-                                Follow on Facebook
-                            </a>
+                            <div class="flex justify-center bg-white min-h-[500px]">
+                                <iframe
+                                    title="MSRD Facebook Page"
+                                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61593783967941&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                                    width="500"
+                                    height="600"
+                                    style="border:none;overflow:hidden;max-width:100%;"
+                                    scrolling="no"
+                                    frameborder="0"
+                                    allowfullscreen="true"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                                </iframe>
+                            </div>
+                            <div class="p-3 text-center border-t border-slate-200">
+                                <a href="https://www.facebook.com/profile.php?id=61593783967941" target="_blank" rel="noopener noreferrer"
+                                   class="inline-block bg-msrd-fb hover:bg-blue-700 text-white text-xs px-4 py-2 rounded font-medium transition">
+                                    <i class="fa-brands fa-facebook mr-1"></i> Open Facebook
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
+            </div>
+
+
+            <!-- Administrator-only community controls -->
+            <div id="adminCommunityControls" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <div class="text-xs font-bold text-amber-900 uppercase tracking-wider"><i class="fa-solid fa-lock mr-1"></i> Administrator Controls</div>
+                        <p class="text-xs text-amber-800 mt-1">Only the authenticated administrator can manage videos, podcast/audio records, comments, events and polls.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="adminAction('video')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Video</button>
+                        <button onclick="adminAction('audio')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Podcast</button>
+                        <button onclick="adminAction('event')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Event</button>
+                        <button onclick="adminAction('comment')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Comments</button>
+                        <button onclick="adminAction('poll')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Poll</button>
+                    </div>
+                </div>
             </div>
 
         </section>
@@ -885,6 +909,84 @@
             </div>
         </section>
 
+
+        <!-- ==================== TAB: IRB SUBMISSION ==================== -->
+        <section id="tab-irb" class="tab-content space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-msrd-navy flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-shield-halved text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-msrd-teal uppercase tracking-wider">Ethics &amp; Research Governance</span>
+                        <h2 class="text-2xl font-serif font-bold text-msrd-navy mt-1">IRB Submission</h2>
+                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                            Select the appropriate IRB submission pathway before starting data collection.
+                            The forms below are separate and should be completed according to the research category.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <div class="border border-slate-200 rounded-xl p-6 bg-slate-50 hover:bg-white hover:border-msrd-teal hover:shadow-md transition flex flex-col">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 text-msrd-navy flex items-center justify-center">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="font-serif font-bold text-msrd-navy">IRB for Graduation Project (Thesis)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed flex-grow">
+                            Graduation Project research is the research proposal required for the course
+                            <strong>M-1594</strong> before starting the data collection process. The
+                            <strong>PI and all Researchers must be from the College of Medicine at Hebron University.</strong>
+                        </p>
+                        <button onclick="openIRBForm('graduation')" class="mt-6 w-full bg-msrd-navy hover:bg-slate-800 text-white px-4 py-3 rounded-lg font-semibold transition">
+                            <i class="fa-solid fa-file-signature mr-2"></i> Submit Graduation Project IRB
+                        </button>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-6 bg-slate-50 hover:bg-white hover:border-msrd-teal hover:shadow-md transition flex flex-col">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <h3 class="font-serif font-bold text-msrd-navy">IRB for External Research</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed flex-grow">
+                            External Research is research in which the <strong>Principal Investigator (PI)
+                            is not affiliated with the College of Medicine at Hebron University.</strong>
+                        </p>
+                        <button onclick="openIRBForm('external')" class="mt-6 w-full bg-msrd-gold hover:bg-amber-700 text-white px-4 py-3 rounded-lg font-semibold transition">
+                            <i class="fa-solid fa-file-signature mr-2"></i> Submit External Research IRB
+                        </button>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-6 bg-slate-50 hover:bg-white hover:border-msrd-teal hover:shadow-md transition flex flex-col">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                                <i class="fa-solid fa-hospital-user"></i>
+                            </div>
+                            <h3 class="font-serif font-bold text-msrd-navy">IRB for Internal Research</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed flex-grow">
+                            Internal Research is research in which the <strong>Principal Investigator (PI)
+                            is affiliated with the College of Medicine at Hebron University.</strong>
+                        </p>
+                        <button onclick="openIRBForm('internal')" class="mt-6 w-full bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-3 rounded-lg font-semibold transition">
+                            <i class="fa-solid fa-file-signature mr-2"></i> Submit Internal Research IRB
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4 rounded-lg border border-amber-200 bg-amber-50 text-xs text-amber-900">
+                    <i class="fa-solid fa-circle-info mr-1"></i>
+                    <strong>Important:</strong> Data collection must not begin before the required ethical/IRB approval has been obtained.
+                    Use the correct submission category for your study.
+                </div>
+            </div>
+        </section>
+
         <!-- ==================== TAB 7: RESEARCH RESOURCES (GOOGLE DRIVE INTEGRATED) ==================== -->
         <section id="tab-resources" class="tab-content space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
@@ -1029,11 +1131,11 @@
                             </div>
                             <div class="flex items-center space-x-3">
                                 <i class="fa-solid fa-phone text-msrd-teal w-4"></i>
-                                <span>Ext: <strong>+970 2 2220995 (Ext. 2401)</strong></span>
+                                <span>Phone: <strong><a href="tel:+97022220995" class="hover:text-msrd-teal">+972/[+970-2-2220995]</a> Ext: 412</strong></span>
                             </div>
                             <div class="flex items-center space-x-3">
                                 <i class="fa-solid fa-clock text-msrd-teal w-4"></i>
-                                <span>Sunday – Thursday: 08:00 AM – 03:00 PM</span>
+                                <span>Office Hours: Please contact the MSRD office for current office hours.</span>
                             </div>
                         </div>
 
@@ -1113,6 +1215,97 @@
         <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
         <span id="toastMsg">Action completed successfully.</span>
     </div>
+
+
+    <!-- ==================== ADMIN LOGIN / FIRST-USE REGISTRATION ==================== -->
+    <div id="adminLoginModal" class="hidden fixed inset-0 z-[110] bg-slate-950/70 backdrop-blur-sm p-4">
+        <div class="max-w-md mx-auto mt-20 bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-msrd-dark text-white p-5">
+                <div class="text-xs text-blue-200 uppercase tracking-wider" id="adminLoginMode">Administrator Access</div>
+                <h2 class="text-xl font-serif font-bold" id="adminLoginTitle">Administrator Login</h2>
+                <p class="text-xs text-slate-300 mt-1" id="adminLoginHelp">Authorized MSRD administrator only.</p>
+            </div>
+            <form id="adminAuthForm" onsubmit="handleAdminAuth(event)" class="p-6 space-y-4">
+                <div id="adminRegistrationFields" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Administrator Username</label>
+                        <input id="adminUsername" type="text" autocomplete="username" required class="w-full p-2.5 border border-slate-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Administrator Email</label>
+                        <input id="adminEmail" type="email" autocomplete="email" required class="w-full p-2.5 border border-slate-300 rounded-lg">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+                    <input id="adminPassword" type="password" autocomplete="current-password" required minlength="8" class="w-full p-2.5 border border-slate-300 rounded-lg">
+                </div>
+                <div class="flex gap-3">
+                    <button type="submit" class="flex-1 bg-msrd-navy hover:bg-slate-800 text-white px-4 py-2.5 rounded-lg font-semibold">Continue</button>
+                    <button type="button" onclick="closeAdminLogin()" class="px-4 py-2.5 border border-slate-300 rounded-lg">Cancel</button>
+                </div>
+                <p id="adminAuthMessage" class="text-xs text-red-600"></p>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ==================== ADMINISTRATOR PANEL ==================== -->
+    <section id="adminPanel" class="hidden fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="max-w-5xl mx-auto mt-8 bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-msrd-dark text-white p-5 flex items-center justify-between">
+                <div>
+                    <div class="text-xs text-blue-200 uppercase tracking-wider">Restricted Area</div>
+                    <h2 class="text-xl font-serif font-bold">MSRD Administrator Panel</h2>
+                    <p class="text-xs text-slate-300 mt-1">Administrative controls are visible only after administrator authentication.</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="text-slate-300 hover:text-white text-xl" aria-label="Close administrator panel">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                <button onclick="adminAction('publication')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-file-circle-plus text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Add / Update Publication</h3>
+                    <p class="text-xs text-slate-500 mt-1">Manage publication information and verification status.</p>
+                </button>
+                <button onclick="adminAction('event')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-calendar-plus text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Add / Edit / Remove Event</h3>
+                    <p class="text-xs text-slate-500 mt-1">Manage news, events and announcements.</p>
+                </button>
+                <button onclick="adminAction('community')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-photo-film text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Manage Community Media</h3>
+                    <p class="text-xs text-slate-500 mt-1">Upload, edit or remove administrator-approved videos and podcast/audio records.</p>
+                </button>
+                <button onclick="adminAction('poll')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-square-poll-vertical text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Manage Poll</h3>
+                    <p class="text-xs text-slate-500 mt-1">Create, edit, close or remove the community poll.</p>
+                </button>
+                <button onclick="adminAction('comment')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-comments text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Moderate Comments</h3>
+                    <p class="text-xs text-slate-500 mt-1">Review and remove comments from the community feed.</p>
+                </button>
+                <button onclick="adminAction('website')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-gear text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Website Administration</h3>
+                    <p class="text-xs text-slate-500 mt-1">Manage administrator settings and site configuration.</p>
+                </button>
+            </div>
+
+            <div class="px-6 pb-6">
+                <div class="p-4 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900">
+                    <strong>Security note:</strong> This HTML/GitHub version provides a browser-side administrator gate using local browser storage.
+                    It is suitable for a prototype but <strong>is not secure institutional authentication</strong>. Do not store sensitive data or real passwords in this static file.
+                    For real administrator-only publishing, connect the site to a secure backend such as Firebase/Supabase or a Google Apps Script backend with server-side authentication.
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-msrd-dark text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
@@ -1357,6 +1550,171 @@
             setTimeout(() => {
                 toast.classList.add('hidden');
             }, 3500);
+        }
+
+
+        // ============================================================
+        // MSRD ADMINISTRATION - CLIENT-SIDE PROTOTYPE
+        // ============================================================
+        const MSRD_ADMIN_KEY = 'msrd_admin_v1';
+        const MSRD_SESSION_KEY = 'msrd_admin_session';
+
+        // Replace these three placeholder URLs with the actual Google Form
+        // "Send" or "Publish" URLs supplied by MSRD. Do not invent URLs.
+        const IRB_FORM_URLS = {
+            graduation: 'YOUR_GRADUATION_PROJECT_IRB_GOOGLE_FORM_URL',
+            external: 'YOUR_EXTERNAL_RESEARCH_IRB_GOOGLE_FORM_URL',
+            internal: 'YOUR_INTERNAL_RESEARCH_IRB_GOOGLE_FORM_URL'
+        };
+
+        function openIRBForm(type) {
+            const url = IRB_FORM_URLS[type];
+            if (!url || url.startsWith('YOUR_')) {
+                showNotice('The IRB Google Form for this category has not yet been configured.');
+                return;
+            }
+            window.open(url, '_blank', 'noopener');
+        }
+
+        function hasAdminAccount() {
+            return !!localStorage.getItem(MSRD_ADMIN_KEY);
+        }
+
+        function isAdminLoggedIn() {
+            return sessionStorage.getItem(MSRD_SESSION_KEY) === 'authenticated';
+        }
+
+        async function hashText(value) {
+            const data = new TextEncoder().encode(value);
+            const digest = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function openAdminLogin() {
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+            const registration = document.getElementById('adminRegistrationFields');
+            const title = document.getElementById('adminLoginTitle');
+            const mode = document.getElementById('adminLoginMode');
+            const help = document.getElementById('adminLoginHelp');
+            document.getElementById('adminAuthMessage').innerText = '';
+            document.getElementById('adminAuthForm').reset();
+
+            if (!hasAdminAccount()) {
+                registration.classList.remove('hidden');
+                title.innerText = 'Register First Administrator';
+                mode.innerText = 'First-use setup';
+                help.innerText = 'Create the local administrator identity for this browser.';
+                document.getElementById('adminUsername').required = true;
+                document.getElementById('adminEmail').required = true;
+            } else {
+                registration.classList.add('hidden');
+                title.innerText = 'Administrator Login';
+                mode.innerText = 'Restricted access';
+                help.innerText = 'Enter the registered administrator password.';
+                document.getElementById('adminUsername').required = false;
+                document.getElementById('adminEmail').required = false;
+            }
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        async function handleAdminAuth(event) {
+            event.preventDefault();
+            const message = document.getElementById('adminAuthMessage');
+            const password = document.getElementById('adminPassword').value;
+
+            if (!hasAdminAccount()) {
+                const username = document.getElementById('adminUsername').value.trim();
+                const email = document.getElementById('adminEmail').value.trim();
+
+                if (!username || !email || password.length < 8) {
+                    message.innerText = 'Enter username, valid email and a password of at least 8 characters.';
+                    return;
+                }
+
+                const passwordHash = await hashText(password);
+                localStorage.setItem(MSRD_ADMIN_KEY, JSON.stringify({
+                    username,
+                    email,
+                    passwordHash,
+                    createdAt: new Date().toISOString()
+                }));
+
+                sessionStorage.setItem(MSRD_SESSION_KEY, 'authenticated');
+                closeAdminLogin();
+                setAdminUI(true);
+                showNotice('Administrator registration completed.');
+                return;
+            }
+
+            const account = JSON.parse(localStorage.getItem(MSRD_ADMIN_KEY));
+            const passwordHash = await hashText(password);
+
+            if (account && passwordHash === account.passwordHash) {
+                sessionStorage.setItem(MSRD_SESSION_KEY, 'authenticated');
+                closeAdminLogin();
+                setAdminUI(true);
+                showNotice('Administrator authenticated.');
+            } else {
+                message.innerText = 'Incorrect administrator password.';
+            }
+        }
+
+        function setAdminUI(authenticated) {
+            const panel = document.getElementById('adminPanel');
+            const communityControls = document.getElementById('adminCommunityControls');
+            document.getElementById('adminLoginBtn').classList.toggle('hidden', authenticated);
+            document.getElementById('adminLogoutBtn').classList.toggle('hidden', !authenticated);
+            if (communityControls) communityControls.classList.toggle('hidden', !authenticated);
+            if (authenticated) panel.classList.remove('hidden');
+            else panel.classList.add('hidden');
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem(MSRD_SESSION_KEY);
+            setAdminUI(false);
+            showNotice('Administrator session ended.');
+        }
+
+        function adminAction(action) {
+            if (!isAdminLoggedIn()) {
+                openAdminLogin();
+                return;
+            }
+
+            const labels = {
+                publication: 'Publication management',
+                event: 'Event management',
+                community: 'Community media management',
+                poll: 'Poll management',
+                comment: 'Comment moderation',
+                website: 'Website administration',
+                video: 'Video upload',
+                audio: 'Podcast/audio upload'
+            };
+
+            // This static version intentionally does not pretend that files are
+            // permanently uploaded to GitHub. Real persistence requires a backend.
+            if (action === 'video' || action === 'audio') {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = action === 'video' ? 'video/*' : 'audio/*';
+                input.onchange = () => {
+                    if (input.files.length) {
+                        showNotice(`${input.files[0].name} selected. Connect a secure storage backend to publish it permanently.`);
+                    }
+                };
+                input.click();
+                return;
+            }
+
+            showNotice(`${labels[action]} opened. Connect the secure MSRD backend/database to persist changes.`);
         }
 
         window.onload = function() {
