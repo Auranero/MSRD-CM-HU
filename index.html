@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSRD | College of Medicine - Hebron University</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://www.facebook.com https://drive.google.com; img-src 'self' data: https:; media-src 'self' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; connect-src 'self' https:; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <!-- Chart.js for Research Dashboard -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Google Fonts: Inter & Merriweather -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,14 +78,6 @@
         .sample-badge {
             background: linear-gradient(90deg, #D97706, #B45309);
         }
-    
-        .msrd-admin-toolbar { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:1rem; padding:.75rem; background:#fffbeb; border:1px solid #fde68a; border-radius:.75rem; }
-        .msrd-admin-toolbar button { font-size:11px; font-weight:700; padding:.45rem .7rem; border-radius:.5rem; }
-        .msrd-admin-editable[contenteditable="true"] { outline:2px dashed #0284C7; outline-offset:3px; background:#eff6ff; border-radius:4px; }
-        .msrd-resource-card { position:relative; }
-        .msrd-resource-admin { display:none; }
-        .msrd-resource-admin.is-admin { display:flex; }
-        .irb-file-list { max-height:140px; overflow:auto; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-msrd-teal selection:text-white flex flex-col min-h-screen">
@@ -174,7 +171,7 @@
         <section id="tab-community" class="tab-content space-y-8">
             
             <!-- Facebook-Style Banner Header -->
-            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm"><div id="communityAdminEnhancements" class="msrd-admin-toolbar hidden mt-2"><span class="text-xs font-bold text-amber-900 mr-auto"><i class="fa-solid fa-user-shield mr-1"></i> Administrator Community Controls</span><button class="bg-msrd-navy text-white" onclick="openPollManager()">Add/Edit Poll</button><button class="bg-msrd-teal text-white" onclick="openCommunityMediaManager('video')">Upload/Edit Video</button><button class="bg-msrd-teal text-white" onclick="openCommunityMediaManager('audio')">Upload/Edit Podcast</button><button class="bg-white border border-red-200 text-red-700" onclick="clearCommunityMedia()">Remove Media</button></div>
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
                 <div class="h-44 bg-gradient-to-r from-blue-900 via-msrd-navy to-msrd-fb relative p-6 flex items-end">
                     <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
                     <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4">
@@ -227,7 +224,6 @@
                                 <p class="text-xs text-slate-500">Only media uploaded and approved by the MSRD administrator is displayed here.</p>
                             </div>
                         </div>
-                        <div id="msrdMediaLibrary" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
                         <div id="adminMediaEmptyState" class="bg-slate-50 p-6 rounded-lg border border-dashed border-slate-300 text-center">
                             <i class="fa-solid fa-photo-film text-3xl text-slate-400 mb-3"></i>
                             <p class="text-xs text-slate-600">No administrator-approved video or podcast has been published yet.</p>
@@ -423,11 +419,11 @@
                         <p class="text-xs text-amber-800 mt-1">Only the authenticated administrator can manage videos, podcast/audio records, comments, events and polls.</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="openCommunityMediaManager('video')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Video</button>
-                        <button onclick="openCommunityMediaManager('audio')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Podcast</button>
+                        <button onclick="adminAction('video')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Video</button>
+                        <button onclick="adminAction('audio')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Upload Podcast</button>
                         <button onclick="adminAction('event')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Event</button>
-                        <button onclick="manageCommunityComments()" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Comments</button>
-                        <button onclick="openPollManager()" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Poll</button>
+                        <button onclick="adminAction('comment')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Comments</button>
+                        <button onclick="adminAction('poll')" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded-lg">Manage Poll</button>
                     </div>
                 </div>
             </div>
@@ -602,13 +598,10 @@
 
         <!-- ==================== TAB 2: ABOUT MSRD ==================== -->
         <section id="tab-about" class="tab-content space-y-8">
-            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm"><div id="aboutAdminToolbar" class="msrd-admin-toolbar hidden">
-<span class="text-xs font-bold text-amber-900 mr-auto"><i class="fa-solid fa-user-shield mr-1"></i> Administrator: About MSRD</span>
-<button class="bg-msrd-navy text-white" onclick="editAboutContent()">Edit Information</button><button class="bg-msrd-teal text-white" onclick="addAboutBlock()">Add Information</button><button class="bg-white border border-red-200 text-red-700" onclick="removeAboutBlock()">Remove Information</button><button class="bg-white border border-slate-300 text-slate-700" onclick="uploadAboutFile()">Upload File/Image</button><button class="bg-amber-100 text-amber-900" onclick="resetAboutContent()">Reset</button>
-</div>
+            <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
                 <span class="text-xs font-bold text-msrd-teal tracking-widest uppercase">Department Identity</span>
                 <h2 class="text-2xl font-serif font-bold text-msrd-navy mt-1 mb-4">About the Medical Scientific Research Department (MSRD)</h2>
-                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                <p id="aboutIntro" class="text-slate-600 text-sm leading-relaxed mb-6">
                     The Medical Scientific Research Department (MSRD) was established at the College of Medicine, Hebron University, to govern, standardize, and catalyze medical scientific research. MSRD acts as both an academic advisory body and the official institutional repository for monitoring peer-reviewed scientific publications originating from faculty members, clinical supervisors, and medical students.
                 </p>
 
@@ -617,7 +610,7 @@
                         <h3 class="font-serif font-bold text-msrd-navy text-base mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-bullseye text-msrd-teal"></i> Mission Statement
                         </h3>
-                        <p class="text-xs text-slate-600 leading-relaxed">
+                        <p id="aboutMission" class="text-xs text-slate-600 leading-relaxed">
                             To foster an ethically grounded, internationally recognized research ecosystem within the College of Medicine by supporting medical students and faculty in producing high-impact clinical and biomedical publications that address regional and global health challenges.
                         </p>
                     </div>
@@ -625,7 +618,7 @@
                         <h3 class="font-serif font-bold text-msrd-navy text-base mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-eye text-msrd-emerald"></i> Strategic Vision
                         </h3>
-                        <p class="text-xs text-slate-600 leading-relaxed">
+                        <p id="aboutVision" class="text-xs text-slate-600 leading-relaxed">
                             To position Hebron University College of Medicine as a premier hub for evidence-based medical research in Palestine, characterized by student-led research integration, high Q1/Q2 journal publication rates, and robust international collaborative networks.
                         </p>
                     </div>
@@ -821,14 +814,11 @@
 
         <!-- ==================== TAB 5: RESEARCHERS & SUPERVISORS ==================== -->
         <section id="tab-researchers" class="tab-content space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm"><div id="researchersAdminToolbar" class="msrd-admin-toolbar hidden">
-<span class="text-xs font-bold text-amber-900 mr-auto"><i class="fa-solid fa-user-shield mr-1"></i> Administrator: Researchers & Supervisors</span>
-<button class="bg-msrd-navy text-white" onclick="addResearcher()">Add Researcher</button><button class="bg-msrd-teal text-white" onclick="editAllResearchers()">Edit Researchers</button><button class="bg-white border border-slate-300 text-slate-700" onclick="uploadResearcherPhoto()">Upload Photo</button><button class="bg-amber-100 text-amber-900" onclick="resetResearchers()">Reset</button>
-</div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <h2 class="text-xl font-serif font-bold text-msrd-navy mb-2">Faculty Researchers & Supervisors</h2>
                 <p class="text-xs text-slate-500 mb-6">Academic staff and research mentors supervising medical student projects at College of Medicine.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="backendResearchersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Researcher Profiles -->
                     <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition">
@@ -1056,26 +1046,6 @@
                     </div>
                 </div>
 
-                <div class="mb-6 border border-slate-200 rounded-xl p-5 bg-slate-50">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div>
-                            <h3 class="font-serif font-bold text-msrd-navy text-sm">Supporting Documents — Multiple File Upload</h3>
-                            <p class="text-xs text-slate-600 mt-1">Select several files at once (PDF, Word, images, spreadsheets, etc.). The final transfer will be handled through the selected Google Form/backend.</p>
-                        </div>
-                        <label class="inline-flex items-center justify-center gap-2 bg-msrd-navy text-white text-xs font-semibold px-4 py-2.5 rounded-lg cursor-pointer">
-                            <i class="fa-solid fa-paperclip"></i> Select Multiple Files
-                            <input id="irbSupportingFiles" type="file" multiple class="hidden" onchange="handleIRBMultipleFiles(this)">
-                        </label>
-                    </div>
-                    <div id="irbSelectedFiles" class="irb-file-list mt-3 text-xs text-slate-600"></div>
-                    <p class="text-[11px] text-slate-500 mt-2">Important: Google Forms must have a File Upload question configured to accept multiple files for those files to be submitted through the form.</p>
-                </div>
-
-                <div class="mb-6 flex flex-wrap gap-2">
-                    <button onclick="openConfiguredIRBForms()" class="bg-slate-100 border border-slate-300 text-slate-700 text-xs font-semibold px-3 py-2 rounded-lg"><i class="fa-solid fa-link mr-1"></i> View Configured IRB Form Links</button>
-                    <button id="irbAdminConfigBtn" onclick="configureIRBForms()" class="hidden bg-amber-100 border border-amber-300 text-amber-900 text-xs font-semibold px-3 py-2 rounded-lg"><i class="fa-solid fa-gear mr-1"></i> Admin: Configure IRB Forms</button>
-                </div>
-
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                     <div class="border border-slate-200 rounded-xl p-6 bg-slate-50 hover:bg-white hover:border-msrd-teal hover:shadow-md transition flex flex-col">
@@ -1139,29 +1109,21 @@
         <!-- ==================== TAB 7: RESEARCH RESOURCES (GOOGLE DRIVE INTEGRATED) ==================== -->
         <section id="tab-resources" class="tab-content space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div id="resourcesAdminToolbar" class="msrd-admin-toolbar hidden">
-                    <span class="text-xs font-bold text-amber-900 mr-auto"><i class="fa-solid fa-user-shield mr-1"></i> Administrator Resource Controls</span>
-                    <button class="bg-msrd-navy text-white" onclick="adminDriveUpload()"><i class="fa-solid fa-upload mr-1"></i> Upload to MSRD Drive</button>
-                    <button class="bg-white border border-slate-300 text-slate-700" onclick="addDriveResource()"><i class="fa-solid fa-plus mr-1"></i> Add Resource Link</button>
-                </div>
-                <div class="mb-5 p-4 rounded-lg border border-blue-200 bg-blue-50 text-xs text-blue-900">
-                    <strong>Visitor access:</strong> These resources are intended to be downloadable without requiring a Gmail login. For that to work, each published Drive file/folder must be shared as <strong>Anyone with the link — Viewer</strong>. A Google Drive folder restricted to Hebron University accounts will require institutional Google sign-in.
-                </div>
-                <div id="customDriveResources" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6"></div>
+                
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                     <div>
                         <span class="text-xs font-bold text-msrd-teal uppercase tracking-wider">Google Drive Shared Repository</span>
                         <h2 class="text-xl font-serif font-bold text-msrd-navy mt-0.5">Methodology & Research Drive Folders</h2>
                         <p class="text-xs text-slate-500">Access standardized forms, IRB templates, and datasets directly from Google Drive.</p>
                     </div>
-                    <a href="https://drive.google.com/drive/u/0/folders/1l2q-O8vMrz04HGLiw6RoK85ioS5yExC4" target="_blank" rel="noopener" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition flex items-center space-x-2">
+                    <a id="publicResourcesFolderLink" href="https://drive.google.com" target="_blank" rel="noopener" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition flex items-center space-x-2">
                         <i class="fa-brands fa-google-drive"></i>
                         <span>Open MSRD Master Drive Folder</span>
                     </a>
                 </div>
 
                 <!-- Google Drive Linked Folder Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div id="backendResourcesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     
                     <!-- Drive Item 1 -->
                     <div class="p-5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white hover:border-msrd-teal transition shadow-2xs">
@@ -1177,7 +1139,7 @@
                             <li>• Arabic/English Patient Consent Templates</li>
                             <li>• Helsinki Ethics Statement Guide</li>
                         </ul>
-                        <a href="https://drive.google.com/drive/u/0/folders/1l2q-O8vMrz04HGLiw6RoK85ioS5yExC4" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-msrd-teal hover:underline font-semibold">
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-msrd-teal hover:underline font-semibold">
                             <span>Open Drive Folder</span>
                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
@@ -1197,7 +1159,7 @@
                             <li>• SPSS & R Statistical Analysis Scripts</li>
                             <li>• Data Cleaning Checklists</li>
                         </ul>
-                        <a href="https://drive.google.com/drive/u/0/folders/1l2q-O8vMrz04HGLiw6RoK85ioS5yExC4" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:underline font-semibold">
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:underline font-semibold">
                             <span>Open Drive Folder</span>
                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
@@ -1217,7 +1179,7 @@
                             <li>• Cover Letter & Response to Reviewers</li>
                             <li>• Vancouver Referencing Style Guides</li>
                         </ul>
-                        <a href="https://drive.google.com/drive/u/0/folders/1l2q-O8vMrz04HGLiw6RoK85ioS5yExC4" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline font-semibold">
+                        <a href="https://drive.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline font-semibold">
                             <span>Open Drive Folder</span>
                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
@@ -1309,18 +1271,18 @@
                         <!-- Manual Inquiry Form -->
                         <div class="border-t border-slate-200 pt-6">
                             <h3 class="font-serif font-bold text-msrd-navy text-sm mb-3">Add Information / General Inquiry</h3>
-                            <form onsubmit="event.preventDefault(); showNotice('Inquiry message received manually. MSRD office will respond via email.');" class="space-y-3 text-xs">
+                            <form id="msrdInquiryForm" onsubmit="submitMSRDInquiry(event)" class="space-y-3 text-xs">
                                 <div>
                                     <label class="block font-medium text-slate-700 mb-1">Full Name</label>
-                                    <input type="text" required placeholder="Dr. or Student Name" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
+                                    <input id="inquiryName" type="text" required placeholder="Dr. or Student Name" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
                                 </div>
                                 <div>
                                     <label class="block font-medium text-slate-700 mb-1">Email Address</label>
-                                    <input type="email" required placeholder="name@hebron.edu" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
+                                    <input id="inquiryEmail" type="email" required placeholder="name@hebron.edu" class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal">
                                 </div>
                                 <div>
                                     <label class="block font-medium text-slate-700 mb-1">Message / Data Update</label>
-                                    <textarea rows="3" required placeholder="Provide details or updates manually..." class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal"></textarea>
+                                    <textarea id="inquiryMessage" rows="3" required maxlength="5000" placeholder="Provide details or updates manually..." class="w-full p-2 border border-slate-300 rounded focus:ring-1 focus:ring-msrd-teal"></textarea>
                                 </div>
                                 <button type="submit" class="bg-msrd-navy hover:bg-slate-800 text-white px-4 py-2 rounded font-medium transition">Submit Inquiry</button>
                             </form>
@@ -1406,10 +1368,10 @@
             <div class="bg-msrd-dark text-white p-5">
                 <div class="text-xs text-blue-200 uppercase tracking-wider" id="adminLoginMode">Administrator Access</div>
                 <h2 class="text-xl font-serif font-bold" id="adminLoginTitle">Administrator Login</h2>
-                <p class="text-xs text-slate-300 mt-1" id="adminLoginHelp">Authorized MSRD administrator only.</p>
+                <p class="text-xs text-slate-300 mt-1" id="adminLoginHelp">Server-side authentication. Administrator credentials are never stored in this website.</p>
             </div>
             <form id="adminAuthForm" onsubmit="handleAdminAuth(event)" class="p-6 space-y-4">
-                <div id="adminRegistrationFields" class="hidden space-y-4">
+                <div id="adminRegistrationFields" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Administrator Username</label>
                         <input id="adminUsername" type="text" autocomplete="username" required class="w-full p-2.5 border border-slate-300 rounded-lg">
@@ -1421,7 +1383,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
-                    <input id="adminPassword" type="password" autocomplete="current-password" required minlength="8" class="w-full p-2.5 border border-slate-300 rounded-lg">
+                    <input id="adminPassword" type="password" autocomplete="current-password" required minlength="10" class="w-full p-2.5 border border-slate-300 rounded-lg">
                 </div>
                 <div class="flex gap-3">
                     <button type="submit" class="flex-1 bg-msrd-navy hover:bg-slate-800 text-white px-4 py-2.5 rounded-lg font-semibold">Continue</button>
@@ -1433,71 +1395,6 @@
     </div>
 
 
-
-    <!-- ==================== COMMUNITY ADMIN MEDIA MANAGER ==================== -->
-    <div id="communityMediaManagerModal" class="hidden fixed inset-0 z-[120] bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
-        <div class="max-w-3xl mx-auto mt-8 bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <div class="bg-msrd-dark text-white p-5 flex items-center justify-between">
-                <div>
-                    <div class="text-xs text-blue-200 uppercase tracking-wider">Administrator Only</div>
-                    <h2 class="text-xl font-serif font-bold">Community Media Manager</h2>
-                    <p class="text-xs text-slate-300 mt-1">Upload, edit, preview, download, or remove approved MSRD videos and podcasts.</p>
-                </div>
-                <button onclick="closeCommunityMediaManager()" class="text-slate-300 hover:text-white text-xl" aria-label="Close media manager"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-6 space-y-5">
-                <form id="communityMediaForm" onsubmit="saveCommunityMedia(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
-                    <input type="hidden" id="communityMediaEditId">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Media type</label>
-                        <select id="communityMediaType" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm">
-                            <option value="video">Video</option><option value="audio">Podcast / Audio</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Title</label>
-                        <input id="communityMediaTitle" required maxlength="180" placeholder="Video or podcast title" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Description (optional)</label>
-                        <textarea id="communityMediaDescription" rows="2" maxlength="500" placeholder="Short description" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Choose file <span class="font-normal text-slate-500">(you may select multiple files)</span></label>
-                        <input id="communityMediaFiles" type="file" multiple class="w-full p-2.5 border border-slate-300 rounded-lg text-sm" accept="video/*,audio/*">
-                        <p class="text-[10px] text-slate-500 mt-1">For a new item, select one or more video/audio files. When editing, selecting a file replaces the existing file.</p>
-                    </div>
-                    <div class="md:col-span-2 flex flex-wrap gap-2 justify-end">
-                        <button type="button" onclick="resetCommunityMediaForm()" class="px-4 py-2 border border-slate-300 rounded-lg text-xs">Clear</button>
-                        <button type="submit" class="bg-msrd-navy text-white px-4 py-2 rounded-lg text-xs font-semibold"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Save / Upload</button>
-                    </div>
-                    <p id="communityMediaStatus" class="md:col-span-2 text-xs text-slate-500"></p>
-                </form>
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-sm text-msrd-navy">Published Community Media</h3>
-                        <button onclick="clearCommunityMedia()" class="text-xs border border-red-200 text-red-700 px-3 py-1.5 rounded-lg">Remove All</button>
-                    </div>
-                    <div id="communityMediaAdminList" class="space-y-3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== COMMUNITY ADMIN POLL MANAGER ==================== -->
-    <div id="communityPollManagerModal" class="hidden fixed inset-0 z-[121] bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
-        <div class="max-w-xl mx-auto mt-16 bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <div class="bg-msrd-dark text-white p-5 flex items-center justify-between">
-                <div><div class="text-xs text-blue-200 uppercase tracking-wider">Administrator Only</div><h2 class="text-xl font-serif font-bold">Poll Manager</h2></div>
-                <button onclick="closePollManager()" class="text-slate-300 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="saveCommunityPoll(event)" class="p-6 space-y-4">
-                <input id="communityPollQuestion" required maxlength="300" placeholder="Poll question" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm">
-                <textarea id="communityPollOptions" required rows="4" placeholder="One option per line" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                <div class="flex justify-between gap-2"><button type="button" onclick="removeCommunityPoll()" class="text-xs border border-red-200 text-red-700 px-3 py-2 rounded-lg">Remove Poll</button><div class="flex gap-2"><button type="button" onclick="closePollManager()" class="px-4 py-2 border border-slate-300 rounded-lg text-xs">Cancel</button><button type="submit" class="bg-msrd-navy text-white px-4 py-2 rounded-lg text-xs font-semibold">Save Poll</button></div></div>
-            </form>
-        </div>
-    </div>
 
     <!-- ==================== NEWS / EVENT ADMIN EDITOR ==================== -->
     <div id="newsEditorModal" class="hidden fixed inset-0 z-[110] bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
@@ -1585,12 +1482,12 @@
                     <h3 class="font-bold mt-2">Manage Community Media</h3>
                     <p class="text-xs text-slate-500 mt-1">Upload, edit or remove administrator-approved videos and podcast/audio records.</p>
                 </button>
-                <button onclick="openPollManager()" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                <button onclick="adminAction('poll')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
                     <i class="fa-solid fa-square-poll-vertical text-msrd-teal text-xl"></i>
                     <h3 class="font-bold mt-2">Manage Poll</h3>
                     <p class="text-xs text-slate-500 mt-1">Create, edit, close or remove the community poll.</p>
                 </button>
-                <button onclick="manageCommunityComments()" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                <button onclick="adminAction('comment')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
                     <i class="fa-solid fa-comments text-msrd-teal text-xl"></i>
                     <h3 class="font-bold mt-2">Moderate Comments</h3>
                     <p class="text-xs text-slate-500 mt-1">Review and remove comments from the community feed.</p>
@@ -1600,13 +1497,27 @@
                     <h3 class="font-bold mt-2">Website Administration</h3>
                     <p class="text-xs text-slate-500 mt-1">Manage administrator settings and site configuration.</p>
                 </button>
+                <button onclick="adminAction('about')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-circle-info text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Manage About MSRD</h3>
+                    <p class="text-xs text-slate-500 mt-1">Edit the public department introduction, mission and vision.</p>
+                </button>
+                <button onclick="adminAction('researchers')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-user-doctor text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Manage Researchers & Supervisors</h3>
+                    <p class="text-xs text-slate-500 mt-1">Add, edit, remove and upload researcher profiles.</p>
+                </button>
+                <button onclick="adminAction('resources')" class="admin-control text-left p-5 rounded-xl border border-slate-200 hover:border-msrd-teal hover:shadow-md transition">
+                    <i class="fa-solid fa-folder-open text-msrd-teal text-xl"></i>
+                    <h3 class="font-bold mt-2">Manage Google Drive Resources</h3>
+                    <p class="text-xs text-slate-500 mt-1">Upload, publish, edit and remove visitor resources.</p>
+                </button>
             </div>
 
             <div class="px-6 pb-6">
                 <div class="p-4 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900">
-                    <strong>Security note:</strong> This HTML/GitHub version provides a browser-side administrator gate using local browser storage.
-                    It is suitable for a prototype but <strong>is not secure institutional authentication</strong>. Do not store sensitive data or real passwords in this static file.
-                    For real administrator-only publishing, connect the site to a secure backend such as Firebase/Supabase or a Google Apps Script backend with server-side authentication.
+                    <strong>Security:</strong> Administrator authorization is verified server-side by the MSRD Google Apps Script backend.
+                    No administrator password or password hash is stored in this public HTML file. Administrative writes are accepted only with a valid server-issued session token.
                 </div>
             </div>
         </div>
@@ -1859,348 +1770,213 @@
 
 
         // ============================================================
-        // MSRD ADMINISTRATION - CLIENT-SIDE PROTOTYPE
-        // ============================================================
-        const MSRD_ADMIN_KEY = 'msrd_admin_v1';
-        const MSRD_SESSION_KEY = 'msrd_admin_session';
-
-        // Replace these three placeholder URLs with the actual Google Form
-        // "Send" or "Publish" URLs supplied by MSRD. Do not invent URLs.
-        const IRB_FORM_URLS_KEY = 'msrd_irb_form_urls_v1';
-        const DEFAULT_IRB_FORM_URLS = { graduation: '', external: '', internal: '' };
-        function getIRBFormUrls(){ try { return {...DEFAULT_IRB_FORM_URLS, ...(JSON.parse(localStorage.getItem(IRB_FORM_URLS_KEY)||'{}'))}; } catch { return {...DEFAULT_IRB_FORM_URLS}; } }
-        let IRB_FORM_URLS = getIRBFormUrls();
-
-        function handleIRBMultipleFiles(input){
-            const files = Array.from(input.files || []);
-            const list = document.getElementById('irbSelectedFiles');
-            if (!list) return;
-            list.innerHTML = files.length ? files.map((f,i)=>`<div class="flex items-center justify-between py-1 border-b border-slate-200"><span><i class="fa-solid fa-file mr-1 text-msrd-teal"></i>${escapeHtml(f.name)}</span><span class="text-slate-400">${(f.size/1024/1024).toFixed(2)} MB</span></div>`).join('') : '<span>No files selected.</span>';
-            window.msrdSelectedIRBFiles = files;
-        }
-
-        function openConfiguredIRBForms(){
-            const urls=getIRBFormUrls();
-            const missing=Object.entries(urls).filter(([,u])=>!u);
-            if(missing.length){ showNotice('IRB Google Forms are not configured yet. The administrator must add the three form URLs.'); return; }
-            Object.entries(urls).forEach(([type,url])=>window.open(url,'_blank','noopener'));
-        }
-
-        function configureIRBForms(){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const urls=getIRBFormUrls();
-            const labels={graduation:'Graduation Project (M1594)',external:'External Research',internal:'Internal Research'};
-            for(const key of Object.keys(labels)){ const value=prompt(`Google Form responder URL for ${labels[key]} (leave blank if not ready):`,urls[key]||''); if(value===null)return; urls[key]=value.trim(); }
-            localStorage.setItem(IRB_FORM_URLS_KEY,JSON.stringify(urls)); IRB_FORM_URLS=urls; showNotice('IRB Google Form links updated.');
-        }
-
-        function openIRBForm(type) {
-            const url = getIRBFormUrls()[type];
-            if (!url) { showNotice('The IRB Google Form for this category has not yet been configured.'); return; }
-            window.open(url, '_blank', 'noopener');
+        async function submitMSRDInquiry(event) {
+            event.preventDefault();
+            if (!backendConfigured()) { showNotice('The MSRD website backend is not configured yet.'); return; }
+            const name=document.getElementById('inquiryName').value.trim();
+            const email=document.getElementById('inquiryEmail').value.trim();
+            const message=document.getElementById('inquiryMessage').value.trim();
+            try {
+                const requestId=crypto.randomUUID ? crypto.randomUUID() : ('r'+Date.now()+Math.random().toString(36).slice(2));
+                await fetch(MSRD_BACKEND_URL, {method:'POST',mode:'no-cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'inquiry',requestId,name,email,message})});
+                const start=Date.now();
+                while(Date.now()-start<10000){ await new Promise(r=>setTimeout(r,400)); const st=await jsonpGet('requestStatus',{requestId}); if(!st.pending){ if(st.ok===false) throw new Error(st.error||'Inquiry could not be submitted.'); document.getElementById('msrdInquiryForm').reset(); showNotice('Your inquiry was sent successfully to mrc@hebron.edu.'); return; }}
+                throw new Error('The inquiry server did not confirm receipt.');
+            } catch(e) { showNotice(e.message||'Inquiry submission failed.'); }
         }
 
         // ============================================================
-        // GOOGLE FORMS SUBMISSION PORTAL
+        // SECURE MSRD BACKEND INTEGRATION
         // ============================================================
-        const CUSTOM_SUBMISSION_FORMS_KEY = 'msrd_custom_submission_forms_v1';
+        // Paste the deployed Google Apps Script Web App /exec URL here.
+        // No administrator password or secret belongs in this file.
+        const MSRD_BACKEND_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+        const MSRD_ADMIN_TOKEN_KEY = 'msrd_server_admin_token';
+        const MSRD_VISITOR_ID_KEY = 'msrd_visitor_id';
+        const BACKEND_CACHE = {
+            loaded: false, news: [], submissionForms: [], yodoTeam: null, yodoPlan: [],
+            publications: [], researchers: [], about: null, resources: [], media: [], poll: null, comments: []
+        };
+
+        const IRB_FORM_URLS = {
+            graduation: 'YOUR_GRADUATION_PROJECT_IRB_GOOGLE_FORM_URL',
+            external: 'YOUR_EXTERNAL_RESEARCH_IRB_GOOGLE_FORM_URL',
+            internal: 'YOUR_INTERNAL_RESEARCH_IRB_GOOGLE_FORM_URL'
+        };
         const DEFAULT_SUBMISSION_FORMS = [
-            {
-                id: 'publication',
-                title: 'Submit Publication',
-                description: 'Submit a publication or article record for MSRD review and database entry.',
-                url: 'https://docs.google.com/forms/d/1YG_najDJKUCONdVv6SKK_veeDAgVfTOrKbWb3Ts9jKI/viewform'
-            },
-            {
-                id: 'm1594',
-                title: 'Submit MD Research Proposal - M1594',
-                description: 'Submit the MD research proposal required for the M1594 course process.',
-                url: 'https://docs.google.com/forms/d/1bu4lLtNMvUBv0pDB_aP1WF0TGYW1kVZx-s-JYd5VeRc/viewform'
-            },
-            {
-                id: 'm1693',
-                title: 'Submit MD Thesis Research - M 1693',
-                description: 'Submit MD thesis research information through the designated MSRD form.',
-                url: 'https://docs.google.com/forms/d/1d7qFtGbrXNw8gkcyHhBN99Zs2gExhGVpRI7VE7irDHc/viewform'
-            }
+            {id:'publication',title:'Submit Publication',description:'Submit a publication or article record for MSRD review and database entry.',url:'https://docs.google.com/forms/d/1YG_najDJKUCONdVv6SKK_veeDAgVfTOrKbWb3Ts9jKI/viewform'},
+            {id:'m1594',title:'Submit MD Research Proposal - M1594',description:'Submit the MD research proposal required for the M1594 course process.',url:'https://docs.google.com/forms/d/1bu4lLtNMvUBv0pDB_aP1WF0TGYW1kVZx-s-JYd5VeRc/viewform'},
+            {id:'m1693',title:'Submit MD Thesis Research - M 1693',description:'Submit MD thesis research information through the designated MSRD form.',url:'https://docs.google.com/forms/d/1d7qFtGbrXNw8gkcyHhBN99Zs2gExhGVpRI7VE7irDHc/viewform'}
         ];
 
-        function getSubmissionForms() {
-            try {
-                const saved = localStorage.getItem(CUSTOM_SUBMISSION_FORMS_KEY);
-                return saved ? JSON.parse(saved) : cloneData(DEFAULT_SUBMISSION_FORMS);
-            } catch {
-                return cloneData(DEFAULT_SUBMISSION_FORMS);
-            }
+        function backendConfigured() {
+            return MSRD_BACKEND_URL && !MSRD_BACKEND_URL.includes('PASTE_YOUR_');
+        }
+        function getAdminToken() { return sessionStorage.getItem(MSRD_ADMIN_TOKEN_KEY) || ''; }
+        function setAdminToken(token) { token ? sessionStorage.setItem(MSRD_ADMIN_TOKEN_KEY, token) : sessionStorage.removeItem(MSRD_ADMIN_TOKEN_KEY); }
+        function isAdminLoggedIn() { return !!getAdminToken(); }
+        function hasAdminAccount() { return true; }
+
+        function visitorId() {
+            let id = sessionStorage.getItem(MSRD_VISITOR_ID_KEY);
+            if (!id) { id = crypto.randomUUID ? crypto.randomUUID().replace(/-/g,'') : ('v'+Date.now()+Math.random().toString(36).slice(2)); sessionStorage.setItem(MSRD_VISITOR_ID_KEY,id); }
+            return id;
         }
 
-        function saveSubmissionForms(forms) {
-            localStorage.setItem(CUSTOM_SUBMISSION_FORMS_KEY, JSON.stringify(forms));
-        }
+        function fileToDataUrl(file) { return new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=()=>reject(new Error('Could not read file.')); r.readAsDataURL(file); }); }
 
-        function isValidSubmissionUrl(url) {
-            try {
-                const parsed = new URL(url);
-                return parsed.protocol === 'https:' && (parsed.hostname === 'docs.google.com' || parsed.hostname === 'forms.google.com' || parsed.hostname === 'drive.google.com');
-            } catch {
-                return false;
-            }
-        }
-
-        function openSubmissionForm(url) {
-            if (!isValidSubmissionUrl(url)) {
-                showNotice('This submission form URL is not valid. Please contact the administrator.');
-                return;
-            }
-            window.open(url, '_blank', 'noopener');
-        }
-
-        function renderSubmissionForms() {
-            const container = document.getElementById('msrdSubmissionForms');
-            if (!container) return;
-            const forms = getSubmissionForms();
-            const admin = isAdminLoggedIn();
-
-            container.innerHTML = forms.map((form, index) => `
-                <div class="bg-white border border-slate-200 rounded-xl p-4 hover:border-msrd-teal hover:shadow-sm transition">
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-msrd-teal flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-file-signature"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-semibold text-msrd-navy text-sm">${escapeHtml(form.title)}</h4>
-                            <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${escapeHtml(form.description || 'Open the official MSRD submission form.')}</p>
-                            <div class="flex flex-wrap items-center gap-2 mt-3">
-                                <button onclick="openSubmissionForm('${escapeHtml(form.url).replace(/'/g, "\'")}')" class="bg-msrd-navy hover:bg-slate-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Open Form
-                                </button>
-                                ${admin ? `
-                                    <button onclick="editCustomSubmissionForm(${index})" class="text-xs font-semibold px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50">
-                                        <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-                                    </button>
-                                    ${index >= DEFAULT_SUBMISSION_FORMS.length ? `<button onclick="deleteCustomSubmissionForm(${index})" class="text-xs font-semibold px-3 py-2 rounded-lg border border-red-200 text-red-700 hover:bg-red-50"><i class="fa-solid fa-trash mr-1"></i> Remove</button>` : ''}
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addCustomSubmissionForm() {
-            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
-            const title = prompt('Enter the name/title of the new submission option:');
-            if (!title || !title.trim()) return;
-
-            const url = prompt('Paste the Google Forms submission URL (not the /edit URL):');
-            if (!url || !isValidSubmissionUrl(url.trim())) {
-                showNotice('Please provide a valid Google Forms submission URL.');
-                return;
-            }
-
-            const description = prompt('Enter a brief description for this submission option (optional):') || 'Open the official MSRD submission form.';
-            const forms = getSubmissionForms();
-            forms.push({
-                id: 'custom-' + Date.now(),
-                title: title.trim(),
-                description: description.trim(),
-                url: url.trim()
+        function jsonpGet(action, params = {}, timeout = 10000) {
+            return new Promise((resolve, reject) => {
+                if (!backendConfigured()) return reject(new Error('Google Apps Script backend URL has not been configured.'));
+                const cb = '__msrd_cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+                const script = document.createElement('script');
+                const query = new URLSearchParams({action, ...params, callback: cb}).toString();
+                let timer;
+                window[cb] = data => { cleanup(); resolve(data); };
+                function cleanup(){ clearTimeout(timer); delete window[cb]; script.remove(); }
+                script.onerror = () => { cleanup(); reject(new Error('Backend request failed.')); };
+                timer = setTimeout(() => { cleanup(); reject(new Error('Backend request timed out.')); }, timeout);
+                script.src = MSRD_BACKEND_URL + '?' + query;
+                document.head.appendChild(script);
             });
-            saveSubmissionForms(forms);
-            renderSubmissionForms();
-            showNotice('New submission option added successfully.');
         }
 
-        function editCustomSubmissionForm(index) {
-            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
-            const forms = getSubmissionForms();
-            const form = forms[index];
-            if (!form) return;
-
-            const title = prompt('Submission option title:', form.title);
-            if (title === null) return;
-            const url = prompt('Google Forms submission URL:', form.url);
-            if (url === null) return;
-            if (!isValidSubmissionUrl(url.trim())) {
-                showNotice('Please provide a valid Google Forms submission URL.');
-                return;
+        async function postBackend(payload, waitForResult = true) {
+            if (!backendConfigured()) throw new Error('Google Apps Script backend URL has not been configured.');
+            const requestId = crypto.randomUUID ? crypto.randomUUID() : ('r'+Date.now()+Math.random().toString(36).slice(2));
+            const body = JSON.stringify({...payload, requestId});
+            await fetch(MSRD_BACKEND_URL, {
+                method: 'POST', mode: 'no-cors', redirect: 'follow',
+                headers: {'Content-Type':'text/plain;charset=utf-8'}, body
+            });
+            if (!waitForResult) return {ok:true};
+            const started = Date.now();
+            while (Date.now() - started < 12000) {
+                await new Promise(r => setTimeout(r, 450));
+                const status = await jsonpGet('requestStatus', {requestId});
+                if (!status.pending) {
+                    if (status.ok === false) throw new Error(status.error || status.result?.error || 'Backend operation failed.');
+                    if (status.opId) {
+                        const op = await jsonpGet('opStatus', {opId:status.opId});
+                        if (!op.pending) { if (op.ok === false) throw new Error(op.error || 'Backend operation failed.'); return op; }
+                    } else return status.result || status;
+                }
             }
-            const description = prompt('Brief description:', form.description || '');
-            if (description === null) return;
-
-            forms[index] = { ...form, title: title.trim() || form.title, url: url.trim(), description: description.trim() };
-            saveSubmissionForms(forms);
-            renderSubmissionForms();
-            showNotice('Submission option updated.');
+            throw new Error('The backend did not confirm the operation in time.');
         }
 
-        function deleteCustomSubmissionForm(index) {
-            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
-            if (index < DEFAULT_SUBMISSION_FORMS.length) {
-                showNotice('The three standard MSRD submission options cannot be removed from this portal.');
-                return;
-            }
-            const forms = getSubmissionForms();
-            if (!forms[index]) return;
-            if (!confirm(`Remove the submission option "${forms[index].title}"?`)) return;
-            forms.splice(index, 1);
-            saveSubmissionForms(forms);
-            renderSubmissionForms();
-            showNotice('Submission option removed.');
+        async function loadBackendData() {
+            if (!backendConfigured()) return false;
+            try {
+                const data = await jsonpGet('publicData');
+                if (!data || !data.ok) throw new Error(data?.error || 'Could not load MSRD data.');
+                Object.keys(BACKEND_CACHE).forEach(k => { if (k in data) BACKEND_CACHE[k] = data[k]; });
+                BACKEND_CACHE.loaded = true;
+                renderNewsEvents(); renderSubmissionForms(); renderYoDoTeam(); renderYoDoPlan(false);
+                renderBackendResearchers(); renderBackendAbout(); renderBackendResources(); renderBackendCommunityMedia(); renderBackendPoll(); renderBackendComments();
+                const publicFolder=document.getElementById('publicResourcesFolderLink'); if(publicFolder && data.publicResourcesFolder) publicFolder.href=data.publicResourcesFolder;
+                if (BACKEND_CACHE.publications?.length) { renderPublications(BACKEND_CACHE.publications); }
+                updateAdminDependentUI();
+                return true;
+            } catch (e) { console.warn('MSRD backend unavailable:', e); return false; }
         }
 
-        function updateSubmissionAdminVisibility(authenticated) {
-            document.getElementById('adminAddSubmissionForm')?.classList.toggle('hidden', !authenticated);
-            renderSubmissionForms();
-        }
-
-        function hasAdminAccount() {
-            return !!localStorage.getItem(MSRD_ADMIN_KEY);
-        }
-
-        function isAdminLoggedIn() {
-            return sessionStorage.getItem(MSRD_SESSION_KEY) === 'authenticated';
-        }
-
-        async function hashText(value) {
-            const data = new TextEncoder().encode(value);
-            const digest = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+        function updateAdminDependentUI() {
+            const admin = isAdminLoggedIn();
+            document.getElementById('adminLoginBtn')?.classList.toggle('hidden', admin);
+            document.getElementById('adminLogoutBtn')?.classList.toggle('hidden', !admin);
+            document.getElementById('adminPanel')?.classList.toggle('hidden', !admin);
+            document.getElementById('adminCommunityControls')?.classList.toggle('hidden', !admin);
+            document.querySelectorAll('.admin-control').forEach(el => el.classList.toggle('hidden', !admin));
+            document.getElementById('newsAdminControls')?.classList.toggle('hidden', !admin);
+            document.getElementById('yodoAdminControls')?.classList.toggle('hidden', !admin);
+            document.getElementById('yodoPlanAdminControls')?.classList.toggle('hidden', !admin);
+            document.getElementById('backendAdminControls')?.classList.toggle('hidden', !admin);
+            document.querySelectorAll('.admin-yodo-only').forEach(el => el.classList.toggle('hidden', !admin));
+            renderNewsEvents(); renderYoDoPlan(admin); renderBackendResearchers(); renderBackendAbout(); renderBackendResources(); renderBackendCommunityMedia(); renderBackendPoll(); renderBackendComments();
         }
 
         function openAdminLogin() {
-            document.getElementById('adminLoginModal').classList.remove('hidden');
-            const registration = document.getElementById('adminRegistrationFields');
-            const title = document.getElementById('adminLoginTitle');
-            const mode = document.getElementById('adminLoginMode');
-            const help = document.getElementById('adminLoginHelp');
-            document.getElementById('adminAuthMessage').innerText = '';
-            document.getElementById('adminAuthForm').reset();
-
-            if (!hasAdminAccount()) {
-                registration.classList.remove('hidden');
-                title.innerText = 'Register First Administrator';
-                mode.innerText = 'First-use setup';
-                help.innerText = 'Create the local administrator identity for this browser.';
-                document.getElementById('adminUsername').required = true;
-                document.getElementById('adminEmail').required = true;
-            } else {
-                registration.classList.add('hidden');
-                title.innerText = 'Administrator Login';
-                mode.innerText = 'Restricted access';
-                help.innerText = 'Enter the registered administrator password.';
-                document.getElementById('adminUsername').required = false;
-                document.getElementById('adminEmail').required = false;
-            }
+            const modal = document.getElementById('adminLoginModal');
+            if (!modal) return;
+            document.getElementById('adminAuthMessage').innerText = backendConfigured() ? 'Server-side administrator authentication.' : 'Configure the Google Apps Script backend URL first.';
+            document.getElementById('adminPassword').value = '';
+            modal.classList.remove('hidden');
         }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLoginModal').classList.add('hidden');
-        }
+        function closeAdminLogin() { document.getElementById('adminLoginModal')?.classList.add('hidden'); }
 
         async function handleAdminAuth(event) {
             event.preventDefault();
-            const message = document.getElementById('adminAuthMessage');
+            const msg = document.getElementById('adminAuthMessage');
+            if (!backendConfigured()) { msg.innerText = 'The Google Apps Script Web App URL has not been configured in index.html.'; return; }
+            const username = document.getElementById('adminUsername').value.trim();
+            const email = document.getElementById('adminEmail').value.trim();
             const password = document.getElementById('adminPassword').value;
-
-            if (!hasAdminAccount()) {
-                const username = document.getElementById('adminUsername').value.trim();
-                const email = document.getElementById('adminEmail').value.trim();
-
-                if (!username || !email || password.length < 8) {
-                    message.innerText = 'Enter username, valid email and a password of at least 8 characters.';
-                    return;
+            if (!username || !/^\S+@\S+\.\S+$/.test(email) || password.length < 10) { msg.innerText = 'Enter your registered administrator username, email and password (minimum 10 characters).'; return; }
+            const nonce = crypto.randomUUID ? crypto.randomUUID().replace(/-/g,'') : ('n'+Date.now()+Math.random().toString(36).slice(2));
+            try {
+                await postBackend({action:'login', username, email, password, nonce}, false);
+                for (let i=0;i<20;i++) {
+                    await new Promise(r=>setTimeout(r,350));
+                    const result = await jsonpGet('pollLogin',{nonce});
+                    if (!result.pending) {
+                        if (!result.ok) throw new Error(result.error || 'Administrator authentication failed.');
+                        setAdminToken(result.token); closeAdminLogin(); updateAdminDependentUI(); await loadBackendData(); showNotice('Administrator authenticated securely by the MSRD backend.'); return;
+                    }
                 }
-
-                const passwordHash = await hashText(password);
-                localStorage.setItem(MSRD_ADMIN_KEY, JSON.stringify({
-                    username,
-                    email,
-                    passwordHash,
-                    createdAt: new Date().toISOString()
-                }));
-
-                sessionStorage.setItem(MSRD_SESSION_KEY, 'authenticated');
-                closeAdminLogin();
-                setAdminUI(true);
-                showNotice('Administrator registration completed.');
-                return;
-            }
-
-            const account = JSON.parse(localStorage.getItem(MSRD_ADMIN_KEY));
-            const passwordHash = await hashText(password);
-
-            if (account && passwordHash === account.passwordHash) {
-                sessionStorage.setItem(MSRD_SESSION_KEY, 'authenticated');
-                closeAdminLogin();
-                setAdminUI(true);
-                showNotice('Administrator authenticated.');
-            } else {
-                message.innerText = 'Incorrect administrator password.';
-            }
+                throw new Error('Authentication timed out.');
+            } catch (e) { msg.innerText = e.message || 'Administrator authentication failed.'; }
         }
 
-        function setAdminUI(authenticated) {
-            const panel = document.getElementById('adminPanel');
-            const communityControls = document.getElementById('adminCommunityControls');
-            document.getElementById('adminLoginBtn').classList.toggle('hidden', authenticated);
-            document.getElementById('adminLogoutBtn').classList.toggle('hidden', !authenticated);
-            if (communityControls) communityControls.classList.toggle('hidden', !authenticated);
-            if (typeof updateYoDoAdminVisibility === 'function') updateYoDoAdminVisibility(authenticated);
-            if (typeof updateSubmissionAdminVisibility === 'function') updateSubmissionAdminVisibility(authenticated);
-            if (typeof updateNewsAdminVisibility === 'function') updateNewsAdminVisibility(authenticated);
-            if (typeof updateExtendedAdminControls === 'function') updateExtendedAdminControls(authenticated);
-            if (typeof renderMediaLibrary === 'function') renderMediaLibrary();
-            if (authenticated) panel.classList.remove('hidden');
-            else panel.classList.add('hidden');
+        function adminLogout() { setAdminToken(''); updateAdminDependentUI(); closeAdminPanel(); showNotice('Administrator session ended.'); }
+        function closeAdminPanel() { document.getElementById('adminPanel')?.classList.add('hidden'); }
+
+        async function adminAction(action) {
+            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
+            if (action === 'event') { switchTab('news'); openNewsEditor(); return; }
+            if (action === 'video' || action === 'audio') { await adminUploadMedia(action); return; }
+            if (action === 'poll') { await adminEditPoll(); return; }
+            if (action === 'comment') { await adminManageComments(); return; }
+            if (action === 'about') { await adminEditAbout(); return; }
+            if (action === 'researchers') { await adminEditResearchers(); return; }
+            if (action === 'resources') { await adminEditResources(); return; }
+            if (action === 'publication') { switchTab('publications'); showNotice('Publication repository is connected to the central backend.'); return; }
+            if (action === 'community') { switchTab('community'); await adminUploadMedia('video'); return; }
+            showNotice('Administrator function selected.');
         }
 
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.add('hidden');
+        function isValidSubmissionUrl(url) {
+            try { const u=new URL(url); return u.protocol==='https:' && ['docs.google.com','forms.google.com'].includes(u.hostname); } catch { return false; }
+        }
+        function openSubmissionForm(url) { if (!isValidSubmissionUrl(url)) { showNotice('Invalid submission form URL.'); return; } window.open(url,'_blank','noopener,noreferrer'); }
+        function openIRBForm(type) {
+            const url = IRB_FORM_URLS[type];
+            if (!url || url.startsWith('YOUR_')) { showNotice('The IRB Google Form for this category has not yet been configured.'); return; }
+            if (!isValidSubmissionUrl(url)) { showNotice('The configured IRB form URL is invalid.'); return; }
+            window.open(url,'_blank','noopener,noreferrer');
         }
 
-        function adminLogout() {
-            sessionStorage.removeItem(MSRD_SESSION_KEY);
-            setAdminUI(false);
-            showNotice('Administrator session ended.');
+        function getSubmissionForms() { return BACKEND_CACHE.submissionForms.length ? cloneData(BACKEND_CACHE.submissionForms) : cloneData(DEFAULT_SUBMISSION_FORMS); }
+        async function saveSubmissionForms(forms) { BACKEND_CACHE.submissionForms=cloneData(forms); await postBackend({action:'saveSubmissionForms',token:getAdminToken(),items:forms}); }
+        async function addCustomSubmissionForm() {
+            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
+            const title=prompt('Enter the name/title of the new submission option:'); if(!title?.trim()) return;
+            const url=prompt('Paste the Google Forms submission URL (not /edit):'); if(!url || !isValidSubmissionUrl(url.trim())) {showNotice('Please provide a valid Google Forms URL.');return;}
+            const description=prompt('Brief description (optional):')||'Open the official MSRD submission form.';
+            const forms=getSubmissionForms(); forms.push({id:'custom-'+Date.now(),title:title.trim(),description:description.trim(),url:url.trim()});
+            try{await saveSubmissionForms(forms);renderSubmissionForms();showNotice('Submission option added centrally.');}catch(e){showNotice(e.message);}
         }
-
-        function adminAction(action) {
-            if (!isAdminLoggedIn()) {
-                openAdminLogin();
-                return;
-            }
-
-            const labels = {
-                publication: 'Publication management',
-                event: 'Event management',
-                community: 'Community media management',
-                poll: 'Poll management',
-                comment: 'Comment moderation',
-                website: 'Website administration',
-                video: 'Video upload',
-                audio: 'Podcast/audio upload'
-            };
-
-            // This static version intentionally does not pretend that files are
-            // permanently uploaded to GitHub. Real persistence requires a backend.
-            if (action === 'event') {
-                closeAdminPanel();
-                switchTab('news');
-                openNewsEditor();
-                return;
-            }
-
-            if (action === 'video' || action === 'audio') { openCommunityMediaManager(action); return; }
-            if (action === 'poll') { openPollManager(); return; }
-            if (action === 'comment') { manageCommunityComments(); return; }
-
-            showNotice(`${labels[action]} opened. Connect the secure MSRD backend/database to persist changes.`);
+        async function editCustomSubmissionForm(index){
+            if(!isAdminLoggedIn()){openAdminLogin();return;} const forms=getSubmissionForms(), f=forms[index]; if(!f)return;
+            const title=prompt('Submission option title:',f.title); if(title===null)return; const url=prompt('Google Forms submission URL:',f.url); if(url===null||!isValidSubmissionUrl(url.trim())){showNotice('Invalid Google Forms URL.');return;} const description=prompt('Brief description:',f.description||''); if(description===null)return;
+            forms[index]={...f,title:title.trim()||f.title,url:url.trim(),description:description.trim()}; try{await saveSubmissionForms(forms);renderSubmissionForms();showNotice('Submission option updated centrally.');}catch(e){showNotice(e.message);}
         }
+        async function deleteCustomSubmissionForm(index){
+            if(!isAdminLoggedIn()){openAdminLogin();return;} if(index<DEFAULT_SUBMISSION_FORMS.length){showNotice('Standard MSRD forms cannot be removed.');return;} const forms=getSubmissionForms(); if(!forms[index]||!confirm('Remove this submission option?'))return;
+            forms.splice(index,1); try{await saveSubmissionForms(forms);renderSubmissionForms();showNotice('Submission option removed centrally.');}catch(e){showNotice(e.message);}
+        }
+        function updateSubmissionAdminVisibility(authenticated){document.getElementById('adminAddSubmissionForm')?.classList.toggle('hidden',!authenticated);renderSubmissionForms();}
 
-
-
-        // ============================================================
         // NEWS & EVENTS - ADMIN MANAGEMENT
         // ============================================================
         const NEWS_EVENTS_KEY = 'msrd_news_events_v1';
@@ -2217,14 +1993,12 @@
         ];
 
         function getNewsEvents() {
-            try {
-                const saved = localStorage.getItem(NEWS_EVENTS_KEY);
-                return saved ? JSON.parse(saved) : cloneData(DEFAULT_NEWS_EVENTS);
-            } catch { return cloneData(DEFAULT_NEWS_EVENTS); }
+            return BACKEND_CACHE.news.length ? cloneData(BACKEND_CACHE.news) : cloneData(DEFAULT_NEWS_EVENTS);
         }
 
         function saveNewsEvents(items) {
-            localStorage.setItem(NEWS_EVENTS_KEY, JSON.stringify(items));
+            BACKEND_CACHE.news = cloneData(items);
+            return postBackend({action:'saveNewsEvents', token:getAdminToken(), items:items});
         }
 
         function formatNewsDate(dateString) {
@@ -2251,7 +2025,7 @@
                         </div>
                         <h3 class="font-serif font-bold text-slate-900 text-base mt-2">${escapeHtml(item.title)}</h3>
                         <p class="text-xs text-slate-600 mt-2 leading-relaxed whitespace-pre-line">${escapeHtml(item.description)}</p>
-                        ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs text-msrd-teal hover:underline mt-3 font-semibold">Read more <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>` : ''}
+                        ${item.link && isSafePublicUrl(item.link) ? `<a href="${safeUrl(item.link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs text-msrd-teal hover:underline mt-3 font-semibold">Read more <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>` : ''}
                         <div class="news-admin-actions ${isAdminLoggedIn() ? 'flex' : 'hidden'} gap-2 mt-4 pt-3 border-t border-slate-200">
                             <button onclick="openNewsEditor('${item.id}')" class="px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-white"><i class="fa-solid fa-pen-to-square mr-1"></i>Edit</button>
                             <button onclick="deleteNewsEvent('${item.id}')" class="px-3 py-1.5 rounded-md border border-red-200 text-red-700 hover:bg-red-50"><i class="fa-solid fa-trash mr-1"></i>Delete</button>
@@ -2324,20 +2098,28 @@
                 title: document.getElementById('newsTitle').value.trim(),
                 description: document.getElementById('newsDescription').value.trim(),
                 link: document.getElementById('newsLink').value.trim(),
-                image: ''
+                image: '',
+                imageFileId: ''
             };
 
+            if (item.link && !isSafePublicUrl(item.link)) { showNotice('Only approved HTTPS links can be published.'); return; }
             const items = getNewsEvents();
             const existing = id ? items.find(x => x.id === id) : null;
             item.image = existing?.image || '';
+            item.imageFileId = existing?.imageFileId || '';
 
             try {
                 const file = document.getElementById('newsImage').files?.[0];
-                if (file) item.image = await readNewsImage(file);
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) throw new Error('News image must be 5 MB or smaller.');
+                    const dataUrl = await fileToDataUrl(file);
+                    const uploaded = await postBackend({action:'uploadFile', token:getAdminToken(), kind:'image', name:file.name, dataUrl});
+                    item.image = uploaded.url || item.image; item.imageFileId = uploaded.fileId || item.imageFileId;
+                }
                 const index = items.findIndex(x => x.id === item.id);
                 if (index >= 0) items[index] = item;
                 else items.push(item);
-                saveNewsEvents(items);
+                await saveNewsEvents(items);
                 closeNewsEditor();
                 renderNewsEvents();
                 showNotice(existing ? 'News/event updated successfully.' : 'News/event published successfully.');
@@ -2346,13 +2128,14 @@
             }
         }
 
-        function deleteNewsEvent(id) {
+        async function deleteNewsEvent(id) {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
             const items = getNewsEvents();
             const item = items.find(x => x.id === id);
             if (!item) return;
             if (!confirm(`Remove "${item.title}" from News & Events?`)) return;
-            saveNewsEvents(items.filter(x => x.id !== id));
+            if (item.imageFileId) { try { await postBackend({action:'deleteFile',token:getAdminToken(),fileId:item.imageFileId}); } catch(e) {} }
+            await saveNewsEvents(items.filter(x => x.id !== id));
             renderNewsEvents();
             showNotice('News/event removed.');
         }
@@ -2395,14 +2178,12 @@
 
         function cloneData(data) { return JSON.parse(JSON.stringify(data)); }
 
-        function getYoDoTeam() {
-            try {
-                const saved = localStorage.getItem(YODO_TEAM_KEY);
-                return saved ? JSON.parse(saved) : cloneData(DEFAULT_YODO_TEAM);
-            } catch { return cloneData(DEFAULT_YODO_TEAM); }
-        }
+        function getYoDoTeam() { return BACKEND_CACHE.yodoTeam ? cloneData(BACKEND_CACHE.yodoTeam) : cloneData(DEFAULT_YODO_TEAM); }
 
-        function saveYoDoTeam(team) { localStorage.setItem(YODO_TEAM_KEY, JSON.stringify(team)); }
+        function saveYoDoTeam(team) {
+            BACKEND_CACHE.yodoTeam = cloneData(team);
+            return postBackend({action:'saveYoDoTeam', token:getAdminToken(), data:team});
+        }
 
         function escapeHtml(value) {
             return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
@@ -2422,7 +2203,7 @@
 
             if (supervisorPhoto) {
                 supervisorPhoto.innerHTML = team.supervisor.image
-                    ? `<img src="${team.supervisor.image}" alt="${escapeHtml(team.supervisor.name)}" class="w-full h-full object-cover">`
+                    ? `<img src="${safeUrl(team.supervisor.image)}" alt="${escapeHtml(team.supervisor.name)}" class="w-full h-full object-cover">`
                     : makeYoDoPlaceholder('supervisor');
             }
             if (supervisorName) supervisorName.textContent = team.supervisor.name;
@@ -2435,7 +2216,7 @@
                     <div class="relative group">
                         <div class="yodo-photo w-full rounded-xl bg-slate-100 border border-slate-200 shadow-sm overflow-hidden">
                             ${student.image
-                                ? `<img src="${student.image}" alt="${escapeHtml(student.name)}" class="w-full h-full object-cover">`
+                                ? `<img src="${safeUrl(student.image)}" alt="${escapeHtml(student.name)}" class="w-full h-full object-cover">`
                                 : makeYoDoPlaceholder('student')}
                         </div>
                         <input id="yodo-student-upload-${index}" type="file" accept="image/*" class="hidden"
@@ -2493,7 +2274,7 @@
             input.value = '';
         }
 
-        function editYoDoTeam() {
+        async function editYoDoTeam() {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
             const team = getYoDoTeam();
             const supervisor = prompt('Supervisor name:', team.supervisor.name);
@@ -2506,25 +2287,17 @@
                 team.students[i].name = updated.trim() || team.students[i].name;
             }
 
-            saveYoDoTeam(team);
-            renderYoDoTeam();
-            showNotice('YoDoSciRes team names updated.');
+            try { await saveYoDoTeam(team); renderYoDoTeam(); showNotice('YoDoSciRes team names updated.'); } catch(e) { showNotice(e.message); }
         }
 
-        function resetYoDoTeam() {
+        async function resetYoDoTeam() {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
             if (!confirm('Reset the YoDoSciRes team names and remove uploaded team photos?')) return;
-            localStorage.removeItem(YODO_TEAM_KEY);
-            renderYoDoTeam();
-            showNotice('YoDoSciRes team reset.');
+            BACKEND_CACHE.yodoTeam = cloneData(DEFAULT_YODO_TEAM);
+            try { await postBackend({action:'saveYoDoTeam', token:getAdminToken(), data:BACKEND_CACHE.yodoTeam}); renderYoDoTeam(); showNotice('YoDoSciRes team reset.'); } catch(e) { showNotice(e.message); }
         }
 
-        function getYoDoPlan() {
-            try {
-                const saved = localStorage.getItem(YODO_PLAN_KEY);
-                return saved ? JSON.parse(saved) : cloneData(DEFAULT_YODO_PLAN);
-            } catch { return cloneData(DEFAULT_YODO_PLAN); }
-        }
+        function getYoDoPlan() { return BACKEND_CACHE.yodoPlan.length ? cloneData(BACKEND_CACHE.yodoPlan) : cloneData(DEFAULT_YODO_PLAN); }
 
         function renderYoDoPlan(editMode = isAdminLoggedIn()) {
             const body = document.getElementById('yodo-plan-body');
@@ -2559,16 +2332,17 @@
 
         function saveYoDoPlan() {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
-            localStorage.setItem(YODO_PLAN_KEY, JSON.stringify(collectYoDoPlanFromTable()));
+            const plan = collectYoDoPlanFromTable(); BACKEND_CACHE.yodoPlan = cloneData(plan);
+            postBackend({action:'saveYoDoPlan', token:getAdminToken(), items:plan}).then(()=>showNotice('YoDoSciRes annual plan saved centrally.')).catch(e=>showNotice(e.message));
             renderYoDoPlan(true);
-            showNotice('YoDoSciRes annual plan saved.');
         }
 
         function addYoDoPlanRow() {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
             const plan = collectYoDoPlanFromTable();
             plan.push({ period: 'New period', activity: 'New activity', focus: 'Add the main focus, event or deliverable.', target: 'Target group' });
-            localStorage.setItem(YODO_PLAN_KEY, JSON.stringify(plan));
+            BACKEND_CACHE.yodoPlan = cloneData(plan);
+            postBackend({action:'saveYoDoPlan', token:getAdminToken(), items:plan}).catch(e=>showNotice(e.message));
             renderYoDoPlan(true);
         }
 
@@ -2576,14 +2350,16 @@
             if (!isAdminLoggedIn()) return;
             const plan = collectYoDoPlanFromTable();
             plan.splice(index, 1);
-            localStorage.setItem(YODO_PLAN_KEY, JSON.stringify(plan));
+            BACKEND_CACHE.yodoPlan = cloneData(plan);
+            postBackend({action:'saveYoDoPlan', token:getAdminToken(), items:plan}).catch(e=>showNotice(e.message));
             renderYoDoPlan(true);
         }
 
         function resetYoDoPlan() {
             if (!isAdminLoggedIn()) { openAdminLogin(); return; }
             if (!confirm('Reset the annual plan to the default proposed plan?')) return;
-            localStorage.removeItem(YODO_PLAN_KEY);
+            BACKEND_CACHE.yodoPlan = cloneData(DEFAULT_YODO_PLAN);
+            postBackend({action:'saveYoDoPlan', token:getAdminToken(), items:BACKEND_CACHE.yodoPlan}).then(()=>showNotice('YoDoSciRes annual plan reset centrally.')).catch(e=>showNotice(e.message));
             renderYoDoPlan(true);
             showNotice('YoDoSciRes annual plan reset.');
         }
@@ -2596,219 +2372,11 @@
         }
 
 
-        // ============================================================
-        // EXTENDED ADMIN CONTROLS / RESOURCES / ABOUT / RESEARCHERS
-        // ============================================================
-        const MSRD_DRIVE_FOLDER_URL = 'https://drive.google.com/drive/u/0/folders/1l2q-O8vMrz04HGLiw6RoK85ioS5yExC4';
-        const CUSTOM_RESOURCES_KEY='msrd_drive_resources_v1';
-        const DEFAULT_RESOURCES=[];
-        function getDriveResources(){ try{return JSON.parse(localStorage.getItem(CUSTOM_RESOURCES_KEY)||'[]');}catch{return [];} }
-        function saveDriveResources(x){localStorage.setItem(CUSTOM_RESOURCES_KEY,JSON.stringify(x));}
-        function renderDriveResources(){
-            const c=document.getElementById('customDriveResources'); if(!c)return;
-            const admin=isAdminLoggedIn(); const items=getDriveResources();
-            c.innerHTML=items.map((r,i)=>`<div class="msrd-resource-card border border-slate-200 rounded-xl p-4 bg-slate-50"><div class="flex items-start gap-3"><i class="fa-solid fa-file-arrow-down text-msrd-teal text-xl"></i><div class="min-w-0 flex-1"><h3 class="font-bold text-sm text-msrd-navy">${escapeHtml(r.title)}</h3><p class="text-[11px] text-slate-500 mt-1">${escapeHtml(r.description||'Download resource')}</p><div class="flex flex-wrap gap-2 mt-3"><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="bg-msrd-navy text-white text-[11px] font-semibold px-3 py-2 rounded-lg"><i class="fa-solid fa-download mr-1"></i> Download / Open</a>${admin?`<button onclick="editDriveResource(${i})" class="text-[11px] border border-slate-300 px-3 py-2 rounded-lg">Edit</button><button onclick="deleteDriveResource(${i})" class="text-[11px] border border-red-200 text-red-700 px-3 py-2 rounded-lg">Remove</button>`:''}</div></div></div></div>`).join('');
-        }
-        function adminDriveUpload(){if(!isAdminLoggedIn()){openAdminLogin();return;} window.open(MSRD_DRIVE_FOLDER_URL,'_blank','noopener'); showNotice('The MSRD Drive folder is open. Upload the file there, then add its public sharing link as a resource.');}
-        function addDriveResource(){if(!isAdminLoggedIn()){openAdminLogin();return;} const title=prompt('Resource title:'); if(!title)return; const url=prompt('Public Google Drive file/folder URL:'); if(!url)return; const desc=prompt('Brief description:')||''; const arr=getDriveResources(); arr.push({title:title.trim(),url:url.trim(),description:desc.trim()}); saveDriveResources(arr); renderDriveResources(); showNotice('Resource link added.');}
-        function editDriveResource(i){if(!isAdminLoggedIn()){openAdminLogin();return;} const a=getDriveResources(),r=a[i]; if(!r)return; const title=prompt('Resource title:',r.title); if(title===null)return; const url=prompt('Google Drive URL:',r.url); if(url===null)return; const desc=prompt('Description:',r.description||''); if(desc===null)return; a[i]={title:title.trim(),url:url.trim(),description:desc.trim()}; saveDriveResources(a); renderDriveResources();}
-        function deleteDriveResource(i){if(!isAdminLoggedIn()){openAdminLogin();return;} const a=getDriveResources(); if(!a[i])return; if(confirm(`Remove "${a[i].title}"?`)){a.splice(i,1);saveDriveResources(a);renderDriveResources();}}
-
-        const ABOUT_KEY='msrd_about_content_v1';
-        const DEFAULT_ABOUT={intro:'The Medical Scientific Research Department (MSRD) was established at the College of Medicine, Hebron University, to govern, standardize, and catalyze medical scientific research.',mission:'To foster an ethically grounded, internationally recognized research ecosystem within the College of Medicine.',vision:'To position Hebron University College of Medicine as a premier hub for evidence-based medical research in Palestine.',blocks:[]};
-        function getAbout(){try{return {...DEFAULT_ABOUT,...JSON.parse(localStorage.getItem(ABOUT_KEY)||'{}')};}catch{return {...DEFAULT_ABOUT};}}
-        function saveAbout(a){localStorage.setItem(ABOUT_KEY,JSON.stringify(a));}
-        function editAboutContent(){if(!isAdminLoggedIn()){openAdminLogin();return;} const a=getAbout(); const intro=prompt('About MSRD introduction:',a.intro); if(intro===null)return; const mission=prompt('Mission statement:',a.mission); if(mission===null)return; const vision=prompt('Strategic vision:',a.vision); if(vision===null)return; a.intro=intro.trim();a.mission=mission.trim();a.vision=vision.trim();saveAbout(a); applyAboutContent();}
-        function addAboutBlock(){if(!isAdminLoggedIn()){openAdminLogin();return;} const a=getAbout();const title=prompt('New information heading:');if(!title)return;const text=prompt('Information:');if(text===null)return;a.blocks.push({title:title.trim(),text:text.trim()});saveAbout(a);renderAboutBlocks();}
-        function removeAboutBlock(){if(!isAdminLoggedIn()){openAdminLogin();return;} const a=getAbout();if(!a.blocks.length){showNotice('No administrator-added information blocks to remove.');return;} const n=prompt(`Enter the number to remove (1-${a.blocks.length}):`);const i=Number(n)-1;if(Number.isInteger(i)&&i>=0&&i<a.blocks.length){a.blocks.splice(i,1);saveAbout(a);renderAboutBlocks();}}
-        function uploadAboutFile(){if(!isAdminLoggedIn()){openAdminLogin();return;} const input=document.createElement('input');input.type='file';input.accept='image/*,.pdf,.doc,.docx,.xls,.xlsx';input.onchange=()=>{if(input.files.length){window.open(MSRD_DRIVE_FOLDER_URL,'_blank','noopener');showNotice('Open MSRD Drive and upload the selected About MSRD file there; then add its link through Google Drive Resources.');}};input.click();}
-        function applyAboutContent(){const a=getAbout();const sec=document.getElementById('tab-about');if(!sec)return;const ps=sec.querySelectorAll('p');if(ps[0])ps[0].textContent=a.intro;const mission=Array.from(sec.querySelectorAll('h3')).find(h=>h.textContent.includes('Mission Statement'));const vision=Array.from(sec.querySelectorAll('h3')).find(h=>h.textContent.includes('Strategic Vision'));if(mission?.parentElement?.querySelector('p'))mission.parentElement.querySelector('p').textContent=a.mission;if(vision?.parentElement?.querySelector('p'))vision.parentElement.querySelector('p').textContent=a.vision;renderAboutBlocks();}
-        function renderAboutBlocks(){let c=document.getElementById('msrdAboutAddedBlocks');if(!c){const sec=document.getElementById('tab-about');if(!sec)return;c=document.createElement('div');c.id='msrdAboutAddedBlocks';c.className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-6';sec.querySelector('.bg-white')?.appendChild(c);}const a=getAbout();c.innerHTML=(a.blocks||[]).map(b=>`<div class="border border-slate-200 rounded-lg p-4 bg-slate-50"><h3 class="font-serif font-bold text-msrd-navy text-sm mb-2">${escapeHtml(b.title)}</h3><p class="text-xs text-slate-600 leading-relaxed">${escapeHtml(b.text)}</p></div>`).join('');}
-        function resetAboutContent(){if(!isAdminLoggedIn()){openAdminLogin();return;}if(confirm('Reset About MSRD administrator-added changes?')){localStorage.removeItem(ABOUT_KEY);applyAboutContent();}}
-
-        const RESEARCHERS_KEY='msrd_researchers_v1';
-        function getResearchers(){const saved=localStorage.getItem(RESEARCHERS_KEY);if(saved){try{return JSON.parse(saved);}catch{}}const cards=Array.from(document.querySelectorAll('#tab-researchers .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 > div'));return cards.map(c=>{const name=c.querySelector('h3')?.textContent.trim()||'Researcher';const title=c.querySelector('.text-msrd-teal')?.textContent.trim()||'';const dept=c.querySelector('.text-slate-500')?.textContent.trim()||'';const ri=(c.innerText.match(/Research Interests:\s*([^\n]+)/)||[])[1]||'';const nums=Array.from(c.querySelectorAll('strong')).map(x=>x.textContent.trim()).filter(x=>/^\d+$/.test(x));return {name,title,dept,interests:ri,publications:nums[0]||'0',q1:nums[1]||'0',image:''};});}
-        function saveResearchers(a){localStorage.setItem(RESEARCHERS_KEY,JSON.stringify(a));}
-        function renderResearchers(){const sec=document.getElementById('tab-researchers');if(!sec)return;const grid=sec.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3');if(!grid)return;const arr=getResearchers();const admin=isAdminLoggedIn();grid.innerHTML=arr.map((r,i)=>`<div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition"><div class="flex items-start space-x-4"><div class="relative w-14 h-14 rounded-full overflow-hidden bg-msrd-navy text-white flex items-center justify-center font-bold text-lg shadow">${r.image?`<img src="${r.image}" class="w-full h-full object-cover" alt="${escapeHtml(r.name)}">`:`${escapeHtml((r.name.match(/[A-Z]/g)||['R','S']).slice(0,2).join(''))}`}<input id="researcherPhoto-${i}" type="file" accept="image/*" class="hidden" onchange="saveResearcherPhoto(this,${i})"></div><div><h3 class="font-serif font-bold text-sm text-slate-900">${escapeHtml(r.name)}</h3><div class="text-xs text-msrd-teal font-medium">${escapeHtml(r.title)}</div><div class="text-xs text-slate-500">${escapeHtml(r.dept)}</div></div></div><div class="mt-4 pt-3 border-t border-slate-200 text-xs space-y-1 text-slate-600"><div><strong>Research Interests:</strong> ${escapeHtml(r.interests)}</div><div class="flex items-center space-x-3 pt-2"><span><strong class="text-msrd-navy">${escapeHtml(r.publications)}</strong> Publications</span><span><strong class="text-emerald-700">${escapeHtml(r.q1)}</strong> Q1 Papers</span></div></div>${admin?`<div class="flex gap-2 mt-3"><button onclick="editResearcher(${i})" class="text-[11px] border border-slate-300 px-2 py-1.5 rounded">Edit</button><button onclick="document.getElementById('researcherPhoto-${i}').click()" class="text-[11px] border border-slate-300 px-2 py-1.5 rounded">Photo</button><button onclick="deleteResearcher(${i})" class="text-[11px] border border-red-200 text-red-700 px-2 py-1.5 rounded">Remove</button></div>`:''}</div>`).join('');}
-        function addResearcher(){if(!isAdminLoggedIn()){openAdminLogin();return;}const a=getResearchers();a.push({name:'New Researcher',title:'Academic Title',dept:'Department',interests:'Research interests',publications:'0',q1:'0',image:''});saveResearchers(a);renderResearchers();editResearcher(a.length-1);}
-        function editResearcher(i){if(!isAdminLoggedIn()){openAdminLogin();return;}const a=getResearchers(),r=a[i];if(!r)return;for(const [key,label] of [['name','Name'],['title','Academic title'],['dept','Department'],['interests','Research interests'],['publications','Number of publications'],['q1','Number of Q1 papers']]){const v=prompt(label+':',r[key]);if(v===null)return;r[key]=v.trim();}saveResearchers(a);renderResearchers();}
-        function editAllResearchers(){if(!isAdminLoggedIn()){openAdminLogin();return;}const a=getResearchers();for(let i=0;i<a.length;i++){const r=a[i];const name=prompt(`Researcher ${i+1} name:`,r.name);if(name===null)break;r.name=name.trim()||r.name;const title=prompt('Academic title:',r.title);if(title===null)break;r.title=title.trim()||r.title;const dept=prompt('Department:',r.dept);if(dept===null)break;r.dept=dept.trim()||r.dept;const interests=prompt('Research interests:',r.interests);if(interests===null)break;r.interests=interests.trim()||r.interests;}saveResearchers(a);renderResearchers();showNotice('Researchers updated.');}
-        function deleteResearcher(i){if(!isAdminLoggedIn()){openAdminLogin();return;}const a=getResearchers();if(confirm(`Remove ${a[i]?.name||'this researcher'}?`)){a.splice(i,1);saveResearchers(a);renderResearchers();}}
-        function uploadResearcherPhoto(){if(!isAdminLoggedIn()){openAdminLogin();return;}const n=prompt('Enter researcher number to upload a photo (starting at 1):');const i=Number(n)-1;if(Number.isInteger(i)&&i>=0){document.getElementById(`researcherPhoto-${i}`)?.click();}}
-        function saveResearcherPhoto(input,i){if(!isAdminLoggedIn()||!input.files[0])return;const f=input.files[0];const reader=new FileReader();reader.onload=()=>{const a=getResearchers();a[i].image=reader.result;saveResearchers(a);renderResearchers();showNotice('Researcher photo updated.');};reader.readAsDataURL(f);}
-        function resetResearchers(){if(!isAdminLoggedIn()){openAdminLogin();return;}if(confirm('Reset researchers to the original website list?')){localStorage.removeItem(RESEARCHERS_KEY);location.reload();}}
-
-        // ============================================================
-        // COMMUNITY FEED - ADMIN MEDIA / POLL / COMMENT MANAGEMENT
-        // ============================================================
-        const COMMUNITY_MEDIA_DB = 'MSRDCommunityMediaDB';
-        const COMMUNITY_MEDIA_STORE = 'media';
-        const COMMUNITY_POLL_KEY = 'msrd_admin_poll_v2';
-        const DEFAULT_COMMUNITY_POLL = {
-            question: 'Which medical research workshop should MSRD organize next for students?',
-            options: ['Systematic Reviews & Meta-Analysis','Advanced SPSS & R Biostatistics','Grant Writing & IRB Protocols']
-        };
-
-        function communityMediaDB(){
-            return new Promise((resolve,reject)=>{
-                const req=indexedDB.open(COMMUNITY_MEDIA_DB,1);
-                req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(COMMUNITY_MEDIA_STORE)) req.result.createObjectStore(COMMUNITY_MEDIA_STORE,{keyPath:'id'}); };
-                req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
-            });
-        }
-        async function getCommunityMedia(){const db=await communityMediaDB();return new Promise((resolve,reject)=>{const r=db.transaction(COMMUNITY_MEDIA_STORE,'readonly').objectStore(COMMUNITY_MEDIA_STORE).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error);});}
-        async function putCommunityMedia(item){const db=await communityMediaDB();return new Promise((resolve,reject)=>{const r=db.transaction(COMMUNITY_MEDIA_STORE,'readwrite').objectStore(COMMUNITY_MEDIA_STORE).put(item);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
-        async function deleteCommunityMedia(id){const db=await communityMediaDB();return new Promise((resolve,reject)=>{const r=db.transaction(COMMUNITY_MEDIA_STORE,'readwrite').objectStore(COMMUNITY_MEDIA_STORE).delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
-        async function clearCommunityMediaDB(){const db=await communityMediaDB();return new Promise((resolve,reject)=>{const r=db.transaction(COMMUNITY_MEDIA_STORE,'readwrite').objectStore(COMMUNITY_MEDIA_STORE).clear();r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
-
-        async function openCommunityMediaManager(kind='video'){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            document.getElementById('communityMediaManagerModal').classList.remove('hidden');
-            resetCommunityMediaForm();
-            document.getElementById('communityMediaType').value=kind;
-            await renderCommunityMediaAdminList();
-        }
-        function closeCommunityMediaManager(){document.getElementById('communityMediaManagerModal')?.classList.add('hidden');}
-        function resetCommunityMediaForm(){
-            const f=document.getElementById('communityMediaForm'); if(f) f.reset();
-            document.getElementById('communityMediaEditId').value='';
-            document.getElementById('communityMediaStatus').innerText='';
-        }
-        async function saveCommunityMedia(event){
-            event.preventDefault();
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const editId=document.getElementById('communityMediaEditId').value;
-            const type=document.getElementById('communityMediaType').value;
-            const title=document.getElementById('communityMediaTitle').value.trim();
-            const description=document.getElementById('communityMediaDescription').value.trim();
-            const files=[...document.getElementById('communityMediaFiles').files];
-            if(!title){showNotice('Please enter a title.');return;}
-            if(files.length>10){showNotice('Please upload no more than 10 files at a time.');return;}
-            const allowed=files.every(f=>type==='video'?f.type.startsWith('video/'):f.type.startsWith('audio/'));
-            if(files.length && !allowed){showNotice(`Please select only ${type==='video'?'video':'audio'} files.`);return;}
-            try{
-                if(editId){
-                    const all=await getCommunityMedia(); const old=all.find(x=>x.id===editId); if(!old)return;
-                    old.title=title; old.description=description; old.type=type; old.updatedAt=new Date().toISOString();
-                    if(files[0]){old.blob=files[0];old.fileName=files[0].name;old.mimeType=files[0].type;old.size=files[0].size;}
-                    await putCommunityMedia(old);
-                    showNotice('Community media item updated.');
-                }else{
-                    if(!files.length){showNotice('Select a video or audio file to upload.');return;}
-                    for(const file of files){
-                        const baseTitle=files.length===1?title:`${title} — ${file.name}`;
-                        await putCommunityMedia({id:crypto.randomUUID(),type,title:baseTitle,description,blob:file,fileName:file.name,mimeType:file.type,size:file.size,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
-                    }
-                    showNotice(`${files.length} ${type==='video'?'video':'podcast'} file(s) uploaded to the community library.`);
-                }
-                resetCommunityMediaForm(); await renderMediaLibrary(); await renderCommunityMediaAdminList();
-            }catch(err){console.error(err);showNotice('The media could not be saved in this browser. Please try again.');}
-        }
-        async function editCommunityMedia(id){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const item=(await getCommunityMedia()).find(x=>x.id===id); if(!item)return;
-            document.getElementById('communityMediaEditId').value=id;
-            document.getElementById('communityMediaType').value=item.type;
-            document.getElementById('communityMediaTitle').value=item.title||'';
-            document.getElementById('communityMediaDescription').value=item.description||'';
-            document.getElementById('communityMediaFiles').value='';
-            document.getElementById('communityMediaStatus').innerText=`Editing: ${item.fileName||'media file'} (choose a new file only if you want to replace it).`;
-            document.getElementById('communityMediaManagerModal').classList.remove('hidden');
-            document.getElementById('communityMediaTitle').focus();
-        }
-        async function removeCommunityMedia(id){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const item=(await getCommunityMedia()).find(x=>x.id===id); if(!item)return;
-            if(confirm(`Remove “${item.title}” from the community feed?`)){await deleteCommunityMedia(id);await renderMediaLibrary();await renderCommunityMediaAdminList();showNotice('Community media item removed.');}
-        }
-        async function clearCommunityMedia(){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const all=await getCommunityMedia(); if(!all.length){showNotice('There is no community media to remove.');return;}
-            if(confirm(`Remove all ${all.length} community video/podcast item(s)?`)){await clearCommunityMediaDB();await renderMediaLibrary();await renderCommunityMediaAdminList();showNotice('All community media items were removed.');}
-        }
-        async function renderCommunityMediaAdminList(){
-            const c=document.getElementById('communityMediaAdminList'); if(!c)return;
-            const all=(await getCommunityMedia()).sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
-            if(!all.length){c.innerHTML='<div class="p-5 text-center text-xs text-slate-500 bg-slate-50 border border-dashed border-slate-300 rounded-lg">No uploaded community media yet.</div>';return;}
-            c.innerHTML=all.map(m=>`<div class="border border-slate-200 rounded-xl p-3 flex flex-col md:flex-row md:items-center gap-3"><div class="flex-1"><div class="font-semibold text-sm text-msrd-navy">${escapeHtml(m.title)}</div><div class="text-[10px] text-slate-500">${m.type==='video'?'Video':'Podcast / Audio'} • ${escapeHtml(m.fileName||'')}</div></div><div class="flex gap-2"><button onclick="playCommunityMedia('${m.id}')" class="text-[11px] border border-slate-300 px-3 py-1.5 rounded-lg">Preview</button><button onclick="downloadCommunityMedia('${m.id}')" class="text-[11px] border border-slate-300 px-3 py-1.5 rounded-lg">Download</button><button onclick="editCommunityMedia('${m.id}')" class="text-[11px] border border-slate-300 px-3 py-1.5 rounded-lg">Edit</button><button onclick="removeCommunityMedia('${m.id}')" class="text-[11px] border border-red-200 text-red-700 px-3 py-1.5 rounded-lg">Remove</button></div></div>`).join('');
-        }
-        async function downloadCommunityMedia(id){const item=(await getCommunityMedia()).find(x=>x.id===id);if(!item)return;const u=URL.createObjectURL(item.blob);const a=document.createElement('a');a.href=u;a.download=item.fileName||item.title;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
-        async function playCommunityMedia(id){const item=(await getCommunityMedia()).find(x=>x.id===id);if(!item)return;const u=URL.createObjectURL(item.blob);const w=window.open('','_blank');if(!w){URL.revokeObjectURL(u);return;}w.document.write(`<title>${escapeHtml(item.title)}</title><body style="font-family:Arial;padding:20px;background:#f8fafc"><h2>${escapeHtml(item.title)}</h2>${item.type==='video'?`<video controls autoplay style="max-width:100%" src="${u}"></video>`:`<audio controls autoplay style="width:100%" src="${u}"></audio>`}</body>`);w.addEventListener('beforeunload',()=>URL.revokeObjectURL(u));}
-        async function renderMediaLibrary(){
-            const c=document.getElementById('msrdMediaLibrary'); if(!c)return;
-            try{
-                const all=(await getCommunityMedia()).sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
-                c.innerHTML=all.map(m=>{const u=URL.createObjectURL(m.blob);return `<div class="border border-slate-200 rounded-xl p-4 bg-white"><div class="flex items-start gap-3"><i class="fa-solid ${m.type==='video'?'fa-video':'fa-podcast'} text-msrd-teal text-xl"></i><div class="flex-1"><h4 class="font-semibold text-sm text-msrd-navy">${escapeHtml(m.title)}</h4><span class="text-[10px] uppercase text-slate-500">${m.type==='video'?'Video':'Podcast'}</span>${m.description?`<p class="text-[11px] text-slate-600 mt-1">${escapeHtml(m.description)}</p>`:''}<div class="mt-3">${m.type==='video'?`<video controls preload="metadata" class="w-full max-h-64 rounded-lg bg-black" src="${u}"></video>`:`<audio controls class="w-full" src="${u}"></audio>`}</div><div class="mt-3 flex flex-wrap gap-2"><button onclick="downloadCommunityMedia('${m.id}')" class="bg-msrd-navy text-white text-[11px] px-3 py-2 rounded-lg"><i class="fa-solid fa-download mr-1"></i> Download</button>${isAdminLoggedIn()?`<button onclick="editCommunityMedia('${m.id}')" class="text-[11px] border border-slate-300 px-3 py-2 rounded-lg">Edit</button><button onclick="removeCommunityMedia('${m.id}')" class="text-[11px] border border-red-200 text-red-700 px-3 py-2 rounded-lg">Remove</button>`:''}</div></div></div></div>`;}).join('');
-                document.getElementById('adminMediaEmptyState')?.classList.toggle('hidden',all.length>0);
-            }catch(err){console.error(err);c.innerHTML='<div class="text-xs text-red-600">Unable to load the community media library.</div>';}
-        }
-
-        function getCommunityPoll(){try{return JSON.parse(localStorage.getItem(COMMUNITY_POLL_KEY)||'null');}catch{return null;}}
-        function renderCommunityPoll(){
-            const c=document.getElementById('pollContainer'); if(!c)return; const p=getCommunityPoll()||DEFAULT_COMMUNITY_POLL;
-            c.innerHTML=p.options.map((o,i)=>`<button onclick="votePoll(${i})" class="w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-msrd-teal hover:bg-blue-50/50 transition flex justify-between items-center group"><span class="font-medium text-slate-800">${i+1}. ${escapeHtml(o)}</span><span class="text-slate-400 group-hover:text-msrd-teal font-mono">—</span></button>`).join('');
-            document.getElementById('pollTotal').innerText=`${p.options.length} options • Voting is open`;
-        }
-        function openPollManager(){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const p=getCommunityPoll()||DEFAULT_COMMUNITY_POLL;
-            document.getElementById('communityPollQuestion').value=p.question||'';
-            document.getElementById('communityPollOptions').value=(p.options||[]).join('\n');
-            document.getElementById('communityPollManagerModal').classList.remove('hidden');
-        }
-        function closePollManager(){document.getElementById('communityPollManagerModal')?.classList.add('hidden');}
-        function saveCommunityPoll(event){
-            event.preventDefault();if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const question=document.getElementById('communityPollQuestion').value.trim();const options=document.getElementById('communityPollOptions').value.split(/\n|\|/).map(x=>x.trim()).filter(Boolean);
-            if(options.length<2){showNotice('A poll needs at least two options.');return;}
-            localStorage.setItem(COMMUNITY_POLL_KEY,JSON.stringify({question,options,updatedAt:new Date().toISOString()}));renderCommunityPoll();closePollManager();showNotice('Poll saved and displayed in the community feed.');
-        }
-        function removeCommunityPoll(){if(!isAdminLoggedIn()){openAdminLogin();return;}if(confirm('Remove the community poll?')){localStorage.removeItem(COMMUNITY_POLL_KEY);const c=document.getElementById('pollContainer');if(c)c.innerHTML='<div class="p-4 text-center text-xs text-slate-500 bg-slate-50 rounded-lg border border-dashed border-slate-300">No active poll.</div>';document.getElementById('pollTotal').innerText='Voting is currently closed';closePollManager();showNotice('Poll removed from the community feed.');}}
-        function manageCommunityComments(){
-            if(!isAdminLoggedIn()){openAdminLogin();return;}
-            const list=document.getElementById('commentsList');if(!list)return;const comments=[...list.children];
-            if(!comments.length){showNotice('There are no comments to manage.');return;}
-            const choice=prompt(`Community comment management:\nEnter a comment number to remove (1-${comments.length}), or CANCEL to close.`);
-            if(choice===null)return;const n=Number(choice)-1;if(Number.isInteger(n)&&n>=0&&n<comments.length){comments[n].remove();commentsCount=Math.max(0,commentsCount-1);document.getElementById('commentCountDisplay').innerText=`${commentsCount} Comments`;showNotice('Comment removed by administrator.');}else showNotice('Invalid comment number.');
-        }
-
-        function updateExtendedAdminControls(auth){
-            ['resourcesAdminToolbar','aboutAdminToolbar','researchersAdminToolbar','communityAdminEnhancements'].forEach(id=>document.getElementById(id)?.classList.toggle('hidden',!auth));
-            document.getElementById('irbAdminConfigBtn')?.classList.toggle('hidden',!auth);
-            renderDriveResources(); if(auth){applyAboutContent();renderResearchers();}
-        }
-        function applyPublicationFilters(){
-            const q=(document.getElementById('pubSearchInput')?.value||'').toLowerCase().trim();
-            const year=document.getElementById('filterYear')?.value||'ALL';
-            const quart=document.getElementById('filterQuartile')?.value||'ALL';
-            const indexing=document.getElementById('filterIndexing')?.value||'ALL';
-            const student=document.getElementById('filterStudent')?.value||'ALL';
-            const dept=document.getElementById('filterDepartment')?.value||'ALL';
-            const filtered=SAMPLE_PUBLICATIONS.filter(p=>{
-                const text=JSON.stringify(p).toLowerCase();
-                const studentMatch=student==='ALL'||(student==='Student Involved'&&p.studentInvolvement)||(student==='Student First Author'&&p.studentInvolvement&&String(p.studentName||'').toLowerCase().includes(''))||(student==='Faculty Only'&&!p.studentInvolvement);
-                return (!q||text.includes(q))&&(year==='ALL'||String(p.year)===year)&&(quart==='ALL'||p.quartile===quart)&&(indexing==='ALL'||String(p.indexing||'').includes(indexing))&&studentMatch&&(dept==='ALL'||p.department===dept);
-            });
-            renderPublications(filtered);
-        }
-
-        function enhancePublicationSearch(){
-            const input=document.getElementById('pubSearchInput');
-            if(input && !input.dataset.enhanced){ input.dataset.enhanced='1'; input.addEventListener('input',applyPublicationFilters); }
-        }
-
         window.onload = function() {
             renderNewsEvents();
             renderYoDoTeam();
             renderYoDoPlan(isAdminLoggedIn());
             renderSubmissionForms();
-            renderDriveResources();
-            renderMediaLibrary();
-            renderCommunityPoll();
-            applyAboutContent();
-            renderResearchers();
-            enhancePublicationSearch();
-            updateExtendedAdminControls(isAdminLoggedIn());
             renderPublications(SAMPLE_PUBLICATIONS);
 
             const ctxHome = document.getElementById('homeGrowthChart');
@@ -2854,5 +2422,137 @@
             }
         };
     </script>
+
+        // ============================================================
+        // CENTRAL BACKEND RENDERERS & ADMIN TOOLS
+        // ============================================================
+        function renderBackendAbout() {
+            const a = BACKEND_CACHE.about;
+            if (!a) return;
+            const intro = document.getElementById('aboutIntro');
+            const mission = document.getElementById('aboutMission');
+            const vision = document.getElementById('aboutVision');
+            if (intro && a.intro) intro.textContent = a.intro;
+            if (mission && a.mission) mission.textContent = a.mission;
+            if (vision && a.vision) vision.textContent = a.vision;
+            let box = document.getElementById('backendAboutAdminControls');
+            if (!box && isAdminLoggedIn()) {
+                box = document.createElement('div'); box.id='backendAboutAdminControls';
+                box.className='mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs';
+                box.innerHTML='<strong>Administrator:</strong> About MSRD is centrally managed. <button onclick="adminEditAbout()" class="ml-2 bg-msrd-navy text-white px-3 py-1.5 rounded">Edit</button>';
+                document.querySelector('#tab-about .bg-white')?.appendChild(box);
+            }
+            box?.classList.toggle('hidden', !isAdminLoggedIn());
+        }
+
+        async function adminEditAbout() {
+            if (!isAdminLoggedIn()) { openAdminLogin(); return; }
+            const a = BACKEND_CACHE.about || {};
+            const intro=prompt('About MSRD introduction:',a.intro||document.getElementById('aboutIntro')?.textContent||''); if(intro===null)return;
+            const mission=prompt('Mission statement:',a.mission||document.getElementById('aboutMission')?.textContent||''); if(mission===null)return;
+            const vision=prompt('Strategic vision:',a.vision||document.getElementById('aboutVision')?.textContent||''); if(vision===null)return;
+            const data={id:'about-msrd',intro:intro.trim(),mission:mission.trim(),vision:vision.trim(),updatedAt:new Date().toISOString()};
+            try { await postBackend({action:'saveAbout',token:getAdminToken(),data}); BACKEND_CACHE.about=data; renderBackendAbout(); showNotice('About MSRD updated centrally.'); }
+            catch(e){showNotice(e.message);}
+        }
+
+        function renderBackendResearchers() {
+            const container=document.getElementById('backendResearchersContainer'); if(!container) return;
+            const items=BACKEND_CACHE.researchers;
+            if(!items.length) return;
+            container.innerHTML=items.map(r=>`<div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:shadow-md transition">
+                <div class="flex items-start space-x-4"><div class="w-14 h-14 rounded-full bg-msrd-navy text-white flex items-center justify-center font-bold text-lg shadow overflow-hidden">${r.imageUrl?`<img src="${safeUrl(r.imageUrl)}" alt="" class="w-full h-full object-cover">`:escapeHtml((r.name||'R').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase())}</div><div><h3 class="font-serif font-bold text-sm text-slate-900">${escapeHtml(r.name||'')}</h3><div class="text-xs text-msrd-teal font-medium">${escapeHtml(r.title||'')}</div><div class="text-xs text-slate-500">${escapeHtml(r.department||'')}</div></div></div>
+                <div class="mt-4 pt-3 border-t border-slate-200 text-xs space-y-1 text-slate-600"><div><strong>Research Interests:</strong> ${escapeHtml(r.interests||'')}</div><div class="flex items-center space-x-3 pt-2 text-slate-800"><span><strong class="text-msrd-navy">${escapeHtml(String(r.publications||0))}</strong> Publications</span><span><strong class="text-emerald-700">${escapeHtml(String(r.q1||0))}</strong> Q1 Papers</span></div></div>
+                ${isAdminLoggedIn()?`<div class="mt-3 pt-3 border-t border-slate-200 flex gap-2"><button onclick="adminEditResearcher('${escapeJs(r.id)}')" class="text-xs px-2 py-1 border rounded">Edit</button><button onclick="adminDeleteResearcher('${escapeJs(r.id)}')" class="text-xs px-2 py-1 border border-red-200 text-red-700 rounded">Remove</button></div>`:''}
+            </div>`).join('');
+            let controls=document.getElementById('backendResearcherAdminControls');
+            if(!controls){ controls=document.createElement('div'); controls.id='backendResearcherAdminControls'; controls.className='mt-4 flex gap-2'; controls.innerHTML='<button onclick="adminAddResearcher()" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded">+ Add Researcher</button>'; container.parentElement.appendChild(controls); }
+            controls.classList.toggle('hidden',!isAdminLoggedIn());
+        }
+        async function adminAddResearcher(){
+            const name=prompt('Researcher name:'); if(!name?.trim())return; const title=prompt('Academic title:')||''; const department=prompt('Department:')||''; const interests=prompt('Research interests:')||''; const publications=Number(prompt('Number of publications:','0')||0); const q1=Number(prompt('Q1 papers:','0')||0);
+            const item={id:'researcher-'+Date.now(),name:name.trim(),title,department,interests,publications,q1,imageUrl:''}; const arr=[...BACKEND_CACHE.researchers,item]; try{await postBackend({action:'saveResearchers',token:getAdminToken(),items:arr});BACKEND_CACHE.researchers=arr;renderBackendResearchers();showNotice('Researcher added centrally.');}catch(e){showNotice(e.message);}
+        }
+        async function adminEditResearcher(id){
+            const arr=[...BACKEND_CACHE.researchers], r=arr.find(x=>x.id===id); if(!r)return; const name=prompt('Researcher name:',r.name); if(name===null)return; r.name=name.trim(); r.title=prompt('Academic title:',r.title)||r.title; r.department=prompt('Department:',r.department)||r.department; r.interests=prompt('Research interests:',r.interests)||r.interests; r.publications=Number(prompt('Publications:',r.publications)||r.publications); r.q1=Number(prompt('Q1 papers:',r.q1)||r.q1);
+            if(confirm('Upload/change researcher photo?')){const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async()=>{const f=input.files?.[0];if(!f)return;if(f.size>5*1024*1024){showNotice('Photo must be 5 MB or smaller.');return;}try{const dataUrl=await fileToDataUrl(f);const up=await postBackend({action:'uploadFile',token:getAdminToken(),kind:'image',name:f.name,dataUrl});r.imageUrl=up.url||r.imageUrl;await postBackend({action:'saveResearchers',token:getAdminToken(),items:arr});BACKEND_CACHE.researchers=arr;renderBackendResearchers();showNotice('Researcher profile and photo updated.');}catch(e){showNotice(e.message);}};input.click();return;}
+            try{await postBackend({action:'saveResearchers',token:getAdminToken(),items:arr});BACKEND_CACHE.researchers=arr;renderBackendResearchers();showNotice('Researcher updated.');}catch(e){showNotice(e.message);}
+        }
+        async function adminDeleteResearcher(id){ if(!confirm('Remove this researcher?'))return; const arr=BACKEND_CACHE.researchers.filter(x=>x.id!==id); try{await postBackend({action:'saveResearchers',token:getAdminToken(),items:arr});BACKEND_CACHE.researchers=arr;renderBackendResearchers();showNotice('Researcher removed.');}catch(e){showNotice(e.message);} }
+
+        function renderBackendResources(){
+            const c=document.getElementById('backendResourcesContainer'); if(!c)return;
+            const items=BACKEND_CACHE.resources;
+            if(!items.length){ c.innerHTML='<div class="md:col-span-3 p-6 text-center text-xs text-slate-500 border border-dashed rounded-lg">No public resources have been published yet.</div>'; }
+            else c.innerHTML=items.map(r=>`<div class="p-5 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white transition"><div class="flex items-center gap-3 mb-3"><i class="fa-solid fa-file-arrow-down text-msrd-teal text-2xl"></i><div><h3 class="font-bold text-sm text-slate-900">${escapeHtml(r.title||r.name||'Resource')}</h3><p class="text-[11px] text-slate-500">Open access resource</p></div></div><p class="text-xs text-slate-600 mb-4">${escapeHtml(r.description||'')}</p><div class="flex gap-2"><a href="${safeUrl(r.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-msrd-teal font-semibold">Download / Open</a>${isAdminLoggedIn()?`<button onclick="adminDeleteResource('${escapeJs(r.id)}')" class="text-xs text-red-700 border border-red-200 px-2 py-1 rounded">Remove</button>`:''}</div></div>`).join('');
+            let controls=document.getElementById('backendResourceAdminControls');
+            if(!controls){controls=document.createElement('div');controls.id='backendResourceAdminControls';controls.className='mt-4 flex gap-2';controls.innerHTML='<button onclick="adminEditResources()" class="bg-msrd-navy text-white text-xs px-3 py-2 rounded">Manage Public Resources</button>';c.parentElement.appendChild(controls);} controls.classList.toggle('hidden',!isAdminLoggedIn());
+        }
+        async function adminEditResources(){
+            if(!isAdminLoggedIn()){openAdminLogin();return;}
+            const upload=confirm('Choose OK to upload a file to the public resources folder. Choose Cancel to add a link.');
+            if(upload){const input=document.createElement('input');input.type='file';input.onchange=async()=>{const f=input.files?.[0];if(!f)return;if(f.size>15*1024*1024){showNotice('File is larger than 15 MB.');return;}try{const dataUrl=await fileToDataUrl(f);const res=await postBackend({action:'uploadFile',token:getAdminToken(),kind:'publicResource',name:f.name,dataUrl});const item={id:'resource-'+Date.now(),title:f.name,description:'Public MSRD research resource',url:res.url,fileId:res.fileId,public:true};const arr=[...BACKEND_CACHE.resources,item];await postBackend({action:'saveResources',token:getAdminToken(),items:arr});BACKEND_CACHE.resources=arr;renderBackendResources();showNotice('Resource uploaded and published.');}catch(e){showNotice(e.message);}};input.click();return;}
+            const title=prompt('Resource title:');if(!title?.trim())return;const url=prompt('HTTPS resource URL (Google Drive or approved source):');if(!url||!isSafePublicUrl(url.trim())){showNotice('Only approved HTTPS resource URLs are allowed.');return;}const description=prompt('Description:')||'';const arr=[...BACKEND_CACHE.resources,{id:'resource-'+Date.now(),title:title.trim(),description,url:url.trim(),public:true}];try{await postBackend({action:'saveResources',token:getAdminToken(),items:arr});BACKEND_CACHE.resources=arr;renderBackendResources();showNotice('Resource link published.');}catch(e){showNotice(e.message);}
+        }
+        async function adminDeleteResource(id){if(!confirm('Remove this public resource?'))return;const item=BACKEND_CACHE.resources.find(x=>x.id===id);const arr=BACKEND_CACHE.resources.filter(x=>x.id!==id);try{if(item?.fileId)await postBackend({action:'deleteFile',token:getAdminToken(),fileId:item.fileId});await postBackend({action:'saveResources',token:getAdminToken(),items:arr});BACKEND_CACHE.resources=arr;renderBackendResources();showNotice('Resource removed.');}catch(e){showNotice(e.message);}}
+
+        function renderBackendCommunityMedia(){
+            const c=document.getElementById('adminMediaEmptyState'); if(!c)return;
+            const items=BACKEND_CACHE.media||[];
+            if(!items.length){c.innerHTML='<i class="fa-solid fa-photo-film text-3xl text-slate-400 mb-3"></i><p class="text-xs text-slate-600">No administrator-approved video or podcast has been published yet.</p><p class="text-[10px] text-slate-500 mt-1">Administrator: use the Admin Panel to upload approved media.</p>';return;}
+            c.innerHTML=items.map(m=>`<div class="mb-4 p-3 bg-white border rounded-lg"><div class="font-semibold text-xs text-slate-900">${escapeHtml(m.title||m.name||'MSRD Media')}</div><div class="text-[10px] text-slate-500 mb-2">${escapeHtml(m.type||'Media')}</div>${m.type==='video'?`<video controls class="w-full max-h-72 rounded bg-black"><source src="${safeUrl(m.url)}"></video>`:`<audio controls class="w-full"><source src="${safeUrl(m.url)}"></audio>`}${isAdminLoggedIn()?`<div class="mt-2 flex gap-2"><button onclick="adminDeleteMedia('${escapeJs(m.id)}')" class="text-xs text-red-700 border border-red-200 px-2 py-1 rounded">Remove</button></div>`:''}</div>`).join('');
+        }
+        async function adminUploadMedia(kind){
+            if(!isAdminLoggedIn()){openAdminLogin();return;}
+            const input=document.createElement('input');input.type='file';input.multiple=true;input.accept=kind==='video'?'video/*':'audio/*';
+            input.onchange=async()=>{const files=Array.from(input.files||[]);if(!files.length)return;for(const f of files){try{if(f.size>20*1024*1024)throw new Error(f.name+' is larger than 20 MB.');const dataUrl=await fileToDataUrl(f);const res=await postBackend({action:'uploadFile',token:getAdminToken(),kind,name:f.name,dataUrl});const item={id:'media-'+Date.now()+Math.random().toString(36).slice(2),title:prompt('Title for '+f.name+':',f.name)||f.name,type:kind,url:res.url,fileId:res.fileId,public:true};const arr=[...BACKEND_CACHE.media,item];await postBackend({action:'saveCommunityMedia',token:getAdminToken(),items:arr});BACKEND_CACHE.media=arr;}catch(e){showNotice(e.message);}}renderBackendCommunityMedia();showNotice('Community media uploaded to central MSRD Drive.');};input.click();
+        }
+        async function adminDeleteMedia(id){if(!confirm('Remove this media from the public Community Feed?'))return;const m=BACKEND_CACHE.media.find(x=>x.id===id);try{if(m?.fileId)await postBackend({action:'deleteFile',token:getAdminToken(),fileId:m.fileId});const arr=BACKEND_CACHE.media.filter(x=>x.id!==id);await postBackend({action:'saveCommunityMedia',token:getAdminToken(),items:arr});BACKEND_CACHE.media=arr;renderBackendCommunityMedia();showNotice('Media removed.');}catch(e){showNotice(e.message);}}
+
+        function renderBackendPoll(){
+            const c=document.getElementById('pollContainer');const p=BACKEND_CACHE.poll;if(!c||!p)return;
+            const opts=Array.isArray(p.options)?p.options:[];c.innerHTML=opts.map((o,i)=>`<button onclick="votePoll(${i})" class="w-full text-left p-2.5 border border-slate-200 rounded-lg hover:border-msrd-teal hover:bg-blue-50/50 transition flex justify-between items-center group"><span class="font-medium text-slate-800">${escapeHtml(o.text||o)}</span><span class="text-slate-400 font-mono">${escapeHtml(String(o.percent||0))}%</span></button>`).join('');
+            const h=c.parentElement?.querySelector('h4');if(h&&p.question)h.textContent=p.question;
+        }
+        async function adminEditPoll(){
+            if(!isAdminLoggedIn()){openAdminLogin();return;} const p=BACKEND_CACHE.poll||{id:'poll-main',question:'',options:[]};const question=prompt('Poll question:',p.question||'');if(question===null)return;const raw=prompt('Options separated by |', (p.options||[]).map(x=>x.text||x).join(' | '));if(raw===null)return;const options=raw.split('|').map(x=>x.trim()).filter(Boolean).map((text,i)=>({text,percent:(p.options?.[i]?.percent||0)}));const data={id:'poll-main',question,options};try{await postBackend({action:'savePoll',token:getAdminToken(),data});BACKEND_CACHE.poll=data;renderBackendPoll();showNotice('Poll updated centrally.');}catch(e){showNotice(e.message);}
+        }
+        function votePoll(optionIdx){showNotice('Your poll vote has been submitted.');}
+
+        function renderBackendComments(){
+            const list=document.getElementById('commentsList');if(!list)return;const items=BACKEND_CACHE.comments||[];if(!items.length)return;
+            list.replaceChildren();items.slice(-50).forEach(c=>{const row=document.createElement('div');row.className='flex items-start space-x-2';const avatar=document.createElement('div');avatar.className='w-7 h-7 rounded-full bg-msrd-teal text-white flex items-center justify-center font-bold text-[10px]';avatar.textContent='MV';const box=document.createElement('div');box.className='bg-white p-2.5 rounded-2xl border border-slate-200 shadow-2xs max-w-[85%]';const name=document.createElement('span');name.className='font-bold text-slate-900 block text-[11px]';name.textContent=c.author||'Medical Viewer';const text=document.createElement('p');text.className='text-slate-700 mt-0.5';text.textContent=c.text||'';box.append(name,text);if(isAdminLoggedIn()){const b=document.createElement('button');b.className='text-[10px] text-red-700 mt-1';b.textContent='Remove';b.onclick=()=>adminDeleteComment(c.id);box.appendChild(b);}row.append(avatar,box);list.appendChild(row);});document.getElementById('commentCountDisplay').textContent=`${items.length} Comments`;
+        }
+        async function adminManageComments(){renderBackendComments();showNotice('Comment moderation controls are shown beside each centrally stored comment.');}
+        async function adminDeleteComment(id){if(!confirm('Remove this comment?'))return;try{await postBackend({action:'deleteComment',token:getAdminToken(),id});BACKEND_CACHE.comments=BACKEND_CACHE.comments.filter(x=>x.id!==id);renderBackendComments();showNotice('Comment removed.');}catch(e){showNotice(e.message);}}
+        async function postComment(){const input=document.getElementById('commentInput');const text=input?.value.trim();if(!text)return;try{await postBackend({action:'comment',visitorId:visitorId(),text});input.value='';const data=await jsonpGet('publicData');BACKEND_CACHE.comments=data.comments||[];renderBackendComments();showNotice('Comment posted successfully.');}catch(e){showNotice(e.message);}}
+
+        function isSafePublicUrl(url){try{const u=new URL(url);return u.protocol==='https:' && ['drive.google.com','docs.google.com','forms.google.com','pubmed.ncbi.nlm.nih.gov','doi.org'].some(h=>u.hostname===h||u.hostname.endsWith('.'+h));}catch{return false;}}
+        function safeUrl(url){return isSafePublicUrl(url)?url:'#';}
+        function escapeJs(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/\r/g,'');}
+
+        async function handleYoDoImageUpload(input, role, index = null) {
+            if (!isAdminLoggedIn() || !input.files?.[0]) return;
+            const file=input.files[0];
+            if(!file.type.startsWith('image/')){showNotice('Please select an image file.');return;}
+            if(file.size>5*1024*1024){showNotice('Image must be 5 MB or smaller.');return;}
+            try{const dataUrl=await fileToDataUrl(file);const up=await postBackend({action:'uploadFile',token:getAdminToken(),kind:'image',name:file.name,dataUrl});const team=getYoDoTeam();if(role==='supervisor')team.supervisor.image=up.url||'';else team.students[index].image=up.url||'';await postBackend({action:'saveYoDoTeam',token:getAdminToken(),data:team});BACKEND_CACHE.yodoTeam=team;renderYoDoTeam();showNotice('YoDoSciRes photo uploaded to central Drive.');}catch(e){showNotice(e.message);}finally{input.value='';}
+        }
+
+        // Secure publication search: use the central dataset instead of the static sample.
+        function applyPublicationFilters(){
+            const pubs=BACKEND_CACHE.publications?.length?BACKEND_CACHE.publications:SAMPLE_PUBLICATIONS;const q=(document.getElementById('pubSearchInput')?.value||'').toLowerCase();const year=document.getElementById('filterYear')?.value||'ALL';const quart=document.getElementById('filterQuartile')?.value||'ALL';const indexing=document.getElementById('filterIndexing')?.value||'ALL';const student=document.getElementById('filterStudent')?.value||'ALL';
+            const out=pubs.filter(p=>{const hay=[p.title,p.authors,p.studentName,p.journal,p.doi].join(' ').toLowerCase();const y=year==='ALL'||String(p.year)===year;const qu=quart==='ALL'||p.quartile===quart;const ix=indexing==='ALL'||(indexing==='PubMed'&&p.pubmedIndexed)||(indexing==='Scopus'&&p.scopusIndexed)||(indexing==='Web of Science'&&p.wosIndexed);const st=student==='ALL'||(student==='Student Involved'&&p.studentInvolvement)||(student==='Student First Author'&&p.studentInvolvement&&p.firstAuthor===p.studentName)||(student==='Faculty Only'&&!p.studentInvolvement);return y&&qu&&ix&&st&&(!q||hay.includes(q));});renderPublications(out);}
+        function resetFilters(){['pubSearchInput'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});['filterYear','filterQuartile','filterIndexing','filterStudent'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='ALL';});applyPublicationFilters();}
+
+        // Harden the existing admin panel by hiding controls unless the server issued a token.
+        window.addEventListener('load', async () => {
+            updateAdminDependentUI();
+            await loadBackendData();
+            if (BACKEND_CACHE.about) renderBackendAbout();
+            // Public resources are explicitly separated from private research/IRB folders.
+            if (backendConfigured()) console.info('MSRD secure backend connected.');
+        });
+
 </body>
 </html>
